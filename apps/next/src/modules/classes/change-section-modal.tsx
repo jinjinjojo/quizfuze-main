@@ -47,8 +47,7 @@ export const ChangeSectionModal: React.FC<ChangeSectionModalProps> = ({
 
   const multiple = !members.length || members.length > 1;
   const currentSection = multiple
-    ? allEqual(members.map((u) => u.section?.id))
-      ? members[0]?.section ?? { id: "", name: "Unassigned" }
+    ? allEqual(members.map((u) => u.section?.id)) ? members[0]?.section ?? { id: "", name: "Unassigned" }
       : { id: "", name: "Various sections" }
     : members[0]?.section ?? { id: "", name: "Unassigned" };
 
