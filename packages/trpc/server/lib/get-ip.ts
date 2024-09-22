@@ -17,5 +17,5 @@ export const getIp = (req: Request | NextApiRequest) => {
         : req.headers["x-real-ip"];
   }
 
-  return xff ? parseIp(xff) ?? "127.0.0.1" : "127.0.0.1";
+  return xff ? (parseIp(xff) ?? "127.0.0.1") : "127.0.0.1";
 };

@@ -26,7 +26,7 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({
       ? _value.isAfter(_min)
         ? _value
         : _min
-      : _value ?? _min ?? _month;
+      : (_value ?? _min ?? _month);
 
   const [selectedDate, setSelectedDate] = React.useState<string | null>(
     initial.format("YYYY-MM-DD"),
