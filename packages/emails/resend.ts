@@ -23,7 +23,9 @@ import ProfileImportCompleteEmail, {
   type ProfileImportCompleteEmailProps,
 } from "./templates/profile-import-complete";
 
-const NOTIFICATIONS_SENDER = `Quizfuze <notifications@${env.EMAIL_SENDER || ""}>`;
+const NOTIFICATIONS_SENDER = `Quizfuze <notifications@${
+  env.EMAIL_SENDER || ""
+}>`;
 
 const to = (email: string | string[]) => {
   if (env.USE_RESEND_PREVIEWS) return "delivered@resend.dev";

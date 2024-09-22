@@ -1,6 +1,6 @@
 # The better Quizlet alternative.
 
-Quizfuze is powered by Quenti, an open-source project. 
+Quizfuze is powered by Quenti, an open-source project.
 
 We've added enhancements to deliver a unique and optimized learning experience, while staying true to the original vision of Quenti
 
@@ -30,9 +30,7 @@ Get up and running by following these steps.
 
 1. Download the repo
 
-
 2. Go to the project folder
-
 
 3. Install dependencies with bun
 

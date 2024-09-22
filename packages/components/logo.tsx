@@ -1,6 +1,6 @@
-
 import React from "react";
-import { chakra, ImageProps } from "@chakra-ui/react";
+
+import { ImageProps, chakra } from "@chakra-ui/react";
 
 interface LogoProps extends ImageProps {
   width?: number | string;
