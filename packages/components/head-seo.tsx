@@ -81,7 +81,7 @@ export const HeadSeo: React.FC<HeadSeoProps> = ({
     origin: WEBSITE_URL,
   });
 
-  const title = `${_title}${!hideTitleSuffix ? " | Quenti" : ""}`;
+  const title = `${_title}${!hideTitleSuffix ? " | Quizfuze" : ""}`;
   const description = truncateOnWord(_description);
 
   let seoObject = buildSeo({

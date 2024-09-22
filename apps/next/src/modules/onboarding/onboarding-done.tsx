@@ -44,7 +44,7 @@ export const OnboardingDone = () => {
       <DefaultLayout
         heading="You're all set!"
         seoTitle="You're all set!"
-        description="That's everything for now, you're ready to start using Quenti."
+        description="That's everything for now, you're ready to start using Quizfuze."
         action="Done"
         nextLoading={startedLoading}
         onNext={async () => {

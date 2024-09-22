@@ -26,7 +26,7 @@ export const OnboardingIntro = () => {
   return (
     <Box>
       <HeadSeo
-        title="Welcome to Quenti"
+        title="Welcome to Quizfuze"
         hideTitleSuffix
         nextSeoProps={{
           noindex: true,
@@ -51,7 +51,7 @@ const Intro = () => {
       <motion.div {...ghost}>
         <Logo width={24} height={24} />
       </motion.div>
-      <Heading size="3xl">Welcome to Quenti</Heading>
+      <Heading size="3xl">Welcome to Quizfuze</Heading>
       <Text fontWeight={500}>{BODY_COPY_BASE}</Text>
       <Button
         mt="4"

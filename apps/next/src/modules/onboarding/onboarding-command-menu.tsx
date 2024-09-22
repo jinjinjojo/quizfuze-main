@@ -41,7 +41,7 @@ export const OnboardingCommandMenu = () => {
           interacted ? (
             <>
               Don&apos;t forget, you can always{" "}
-              <b>{MOD == "Control" ? "Ctrl" : "⌘"} + K</b> to navigate Quenti.
+              <b>{MOD == "Control" ? "Ctrl" : "⌘"} + K</b> to navigate Quizfuze.
             </>
           ) : (
             "Navigate between sets, folders and classes quickly."

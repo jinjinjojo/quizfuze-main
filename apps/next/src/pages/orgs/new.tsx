@@ -128,7 +128,7 @@ export default function NewOrganization() {
       />
     );
   if (session?.user?.isOrgEligible === false)
-    return <ReauthMessage title="Manage your school with Quenti" />;
+    return <ReauthMessage title="Manage your school with Quizfuze" />;
 
   return (
     <WizardLayout

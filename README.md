@@ -1,6 +1,8 @@
-[![og:image](./apps/next/public/og-image.png)](https://quenti.io)
+# The better Quizlet alternative.
 
-The open-source Quizlet alternative.
+Quizfuze is powered by Quenti, an open-source project. 
+
+We've added enhancements to deliver a unique and optimized learning experience, while staying true to the original vision of Quenti
 
 ## The Stack
 
@@ -26,17 +28,11 @@ Get up and running by following these steps.
 
 ### Setup
 
-1. Clone the repo
+1. Download the repo
 
-   ```sh
-   git clone https://github.com/quenti-io/quenti
-   ```
 
 2. Go to the project folder
 
-   ```sh
-   cd quenti
-   ```
 
 3. Install dependencies with bun
 
@@ -93,4 +89,4 @@ bun run build
 bun start
 ```
 
-Navigate to http://localhost:3000 and Quenti should be up and running!
+Navigate to http://localhost:3000 and it should be up and running!

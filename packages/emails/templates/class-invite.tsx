@@ -40,7 +40,7 @@ export const ClasssInviteEmail = ({
         <Head />
         <Preview>
           {inviter.name ?? inviter.email} has invited you to teach {className}{" "}
-          on Quenti
+          on Quizfuze
         </Preview>
         <BodyContainer>
           <MainContainer>
@@ -56,7 +56,7 @@ export const ClasssInviteEmail = ({
                 {inviter.name ?? inviter.email}
               </strong>{" "}
               has invited you to teach{" "}
-              <strong className="text-black">{className}</strong> on Quenti
+              <strong className="text-black">{className}</strong> on Quizfuze
             </Heading>
             <Content>
               {BODY_COPY_BASE}{" "}

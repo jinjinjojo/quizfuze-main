@@ -140,7 +140,7 @@ export const EntityImage: React.FC<EntityImageProps> = ({
             }}
             tw="text-white text-3xl ml-4"
           >
-            Quenti
+            Quizfuze
           </div>
         </div>
       </div>
@@ -208,7 +208,7 @@ export const ProfileImage: React.FC<ProfileImageProps> = ({
           }}
           tw="text-white text-3xl ml-4"
         >
-          Quenti
+          Quizfuze
         </div>
       </div>
     </ImageWrapper>

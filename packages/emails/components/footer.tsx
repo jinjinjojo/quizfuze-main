@@ -14,7 +14,7 @@ export const Footer: React.FC<FooterProps> = ({ withLogo = false }) => {
       <Hr className="w-full border-[2px] border-gray-200" />
       <div className="flex px-8 pb-5 pt-3">
         <Link href={WEBSITE_URL} className="w-1/2 text-sm text-gray-400">
-          Quenti
+          Quizfuze
         </Link>
         {withLogo && (
           <div className="w-1/2">

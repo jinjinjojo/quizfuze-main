@@ -62,7 +62,7 @@ export default function SignupModal() {
                   )
                 }
               >
-                Sign up for Quenti
+                Sign up for Quizfuze
               </Button>
               <Button
                 h="10"

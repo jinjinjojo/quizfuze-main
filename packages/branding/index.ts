@@ -1,11 +1,10 @@
-export const SLOGAN = "The ultimate learning platform";
-export const SLOGAN_TITLE = "The Ultimate Learning Platform";
-
-export const TAGLINE = "There's plenty with Quenti";
-export const TAGLINE_TITLE = "There's Plenty with Quenti";
+export const TAGLINE = "Accelerate Your Learning with Quizfuze";
+export const TAGLINE_TITLE = "Accelerate Your Learning with Quizfuze";
 
 export const BODY_COPY_LANDING =
-  "Meet Quenti, the new standard for online studying. Powerful, fast, and ads are thrown right out the window. Free forever for students.";
+  "Welcome to Quizfuze - a proven platform that helps students retain information faster and learn smarter.";
+
 export const BODY_COPY_BASE =
-  "Quenti is the modern learning platform designed to let you study anything.";
-export const BODY_COPY_SEO = `${BODY_COPY_BASE} Study with flashcards, games and more, all without interruptions.`;
+  "Supercharge memory and deepen understanding easier with Quizfuze.";
+
+export const BODY_COPY_SEO = `${BODY_COPY_BASE} Explore flashcards, interactive games, and more - all designed to optimize your study experience and boost recall.`;

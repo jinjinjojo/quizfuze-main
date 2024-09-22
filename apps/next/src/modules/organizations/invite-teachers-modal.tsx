@@ -129,7 +129,7 @@ export const InviteTeachersModal: React.FC<InviteTeachersModalProps> = ({
               <Text>
                 Teachers within your organization with emails ending in{" "}
                 <strong>@{domain}</strong> are automatically added. Send out
-                invites for your teachers to sign up on Quenti.
+                invites for your teachers to sign up on Quizfuze.
               </Text>
             </Stack>
             <Stack spacing="6">

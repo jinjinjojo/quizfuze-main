@@ -171,7 +171,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
                     <Logo width={24} height={24} />
                     <Heading fontSize="24px" textAlign="center">
                       {mode == "signup"
-                        ? "Create your Quenti account"
+                        ? "Create your Quizfuze account"
                         : "Welcome back"}
                     </Heading>
                     <form

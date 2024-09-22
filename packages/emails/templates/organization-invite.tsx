@@ -40,7 +40,7 @@ export const OrganizationInviteEmail = ({
         <Head />
         <Preview>
           {inviter.name ?? inviter.email} has invited you to join the {orgName}{" "}
-          organization on Quenti
+          organization on Quizfuze
         </Preview>
         <BodyContainer>
           <MainContainer>
@@ -57,7 +57,7 @@ export const OrganizationInviteEmail = ({
               </strong>{" "}
               has invited you to join the{" "}
               <strong className="text-black">{orgName}</strong> organization on
-              Quenti
+              Quizfuze
             </Heading>
             <Content>
               {BODY_COPY_BASE}{" "}
