@@ -1,28 +1,27 @@
 import React from "react";
 
+
+
 import { Modal } from "@quenti/components/modal";
 import { allEqual } from "@quenti/lib/array";
 import { avatarUrl } from "@quenti/lib/avatar";
 import type { User } from "@quenti/prisma/client";
 import { api } from "@quenti/trpc";
 
-import {
-  Avatar,
-  AvatarGroup,
-  Box,
-  Button,
-  ButtonGroup,
-  HStack,
-  Stack,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
+
+
+import { Avatar, AvatarGroup, Box, Button, ButtonGroup, HStack, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+
+
 
 import { IconArrowRight } from "@tabler/icons-react";
+
+
 
 import { useClass } from "../../hooks/use-class";
 import { SectionSelect } from "./section-select";
 import { addressStudents } from "./utils/address-students";
+
 
 export interface ChangeSectionModalProps {
   isOpen: boolean;
@@ -47,10 +46,10 @@ export const ChangeSectionModal: React.FC<ChangeSectionModalProps> = ({
 
   const multiple = !members.length || members.length > 1;
   const currentSection = multiple
-    ? allEqual(members.map((u) => u.section?.id)) ? members[0]?.section ?? { id: "", name: "Unassigned" }
+    ? allEqual(members.map((u) => u.section?.id))
+      ? (members[0]?.section ?? { id: "", name: "Unassigned" })
       : { id: "", name: "Various sections" }
-    : members[0]?.section ?? { id: "", name: "Unassigned" };
-
+    : (members[0]?.section ?? { id: "", name: "Unassigned" });
 
   const updateStudents = api.classes.updateStudents.useMutation({
     onSuccess: async () => {
