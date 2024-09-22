@@ -112,12 +112,10 @@ export const ChangeSectionModal: React.FC<ChangeSectionModalProps> = ({
               {switcher}
             </Stack>
           ) : (
-            <>
-              <HStack spacing="4">
-                <Avatar src={avatarUrl(members[0]!.user)} size="sm" />
-                {switcher}
-              </HStack>
-            </>
+            <HStack spacing="4">
+              <Avatar src={avatarUrl(members[0]!.user)} size="sm" />
+              {switcher}
+            </HStack>
           )}
         </Modal.Body>
         <Modal.Divider />
