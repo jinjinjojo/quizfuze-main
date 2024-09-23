@@ -54,10 +54,10 @@ export const TopBar = () => {
 
   const text = isSaving
     ? "Saving..."
-    : saveError ??
+    : (saveError ??
       `${plural(numTerms, "term")} saved ${
         getRelativeTime(savedAt) || "just now"
-      }`;
+      }`);
 
   const [deleteOpen, setDeleteOpen] = React.useState(false);
 

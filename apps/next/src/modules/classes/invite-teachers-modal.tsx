@@ -148,7 +148,7 @@ export const InviteTeachersModal: React.FC<InviteTeachersModalProps> = ({
                             <Input
                               autoFocus={index === 0}
                               placeholder={`email@${
-                                domain ? domain.domain ?? "" : "example.com"
+                                domain ? (domain.domain ?? "") : "example.com"
                               }`}
                               isInvalid={!!errors.emails?.[index]}
                               // px="14px"

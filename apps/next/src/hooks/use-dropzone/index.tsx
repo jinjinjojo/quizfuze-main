@@ -294,8 +294,8 @@ export function useDropzone(
       stopPropagation(event);
 
       // Only deactivate once the dropzone and all children have been left
-      const targets = dragTargetsRef.current.filter(
-        (target) => rootRef.current?.contains(target as Node),
+      const targets = dragTargetsRef.current.filter((target) =>
+        rootRef.current?.contains(target as Node),
       );
       // Make sure to remove a target present multiple times only once
       // (Firefox may fire dragenter/dragleave multiple times on the same element)
