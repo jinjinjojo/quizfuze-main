@@ -32,7 +32,7 @@ export const completeQuizletProfileImport = inngest.createFunction(
 
     await step.run("send-import-complete-email", async () => {
       await sendProfileImportCompleteEmail(user.email, {
-        avatarUrl: user.image || "https://quenti.io/avatars/quenti.png",
+        avatarUrl: user.image || "https://quizfuze.com/avatars/quenti.png",
         profileUrl: `${env.NEXT_PUBLIC_APP_URL}/@${user.username}`,
       });
     });

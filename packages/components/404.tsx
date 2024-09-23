@@ -181,7 +181,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({
             </Button>
             <Button
               as={Link}
-              href="https://status.quenti.io"
+              href="https://status.quizfuze.com"
               variant="ghost"
               colorScheme="gray"
             >

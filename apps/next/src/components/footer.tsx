@@ -131,7 +131,7 @@ export const Footer = () => {
               href="https://github.com/quenti-io/quenti"
               text="Open source"
             />
-            <FooterLink href="https://status.quenti.io" text="Status" />
+            <FooterLink href="https://status.quizfuze.com" text="Status" />
             <FooterLink
               href={`${WEBSITE_URL}/organizations`}
               text="Organizations"
