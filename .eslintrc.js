@@ -91,5 +91,9 @@ module.exports = {
       },
     ],
     "unused-imports/no-unused-imports": "error",
+    // Disable Prettier in production
+    ...(process.env.NODE_ENV === 'production' && {
+      "prettier/prettier": "off",
+    }),
   },
 };
