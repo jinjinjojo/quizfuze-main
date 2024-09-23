@@ -102,7 +102,7 @@ export const ClassCard: React.FC<ClassCardProps> = ({
         justifyContent="end"
         top="0"
         left="0"
-        bgGradient={`linear(to-r, blue.400, ${bannerColor})`}
+        bgGradient={`linear(to-r, #d17100, ${bannerColor})`}
         zIndex="50"
         pointerEvents="none"
       />

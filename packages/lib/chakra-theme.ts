@@ -1,5 +1,4 @@
 import { Open_Sans, Outfit } from "next/font/google";
-
 import {
   type ChakraProps,
   type ChakraTheme,
@@ -15,6 +14,7 @@ export const outfit = Outfit({
   display: "swap",
   variable: "--font-outfit",
 });
+
 export const openSans = Open_Sans({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
@@ -30,43 +30,29 @@ export const fonts = {
 };
 
 export const colors = {
-  blue: {
-    50: "#e0edff",
-    100: "#b0caff",
-    200: "#7ea6ff",
-    300: "#4b83ff",
-    400: "#1a5fff",
-    500: "#0042da",
-    600: "#0036b4",
-    700: "#002782",
-    800: "#001751",
-    900: "#1a202c",
-  },
   orange: {
-    50: "#fff1da",
-    100: "#ffd7ae",
-    200: "#ffbf7d",
-    300: "#ffa54c",
-    400: "#ff8b1a",
-    500: "#e67200",
-    600: "#b45800",
-    700: "#813e00",
-    800: "#4f2500",
-    900: "#200b00",
-  },
-  yellow: {
-    50: "#fff9da",
-    100: "#ffedad",
-    200: "#ffe17d",
-    300: "#ffd54b",
-    400: "#ffc91a",
-    500: "#e6b000",
-    600: "#b38800",
-    700: "#806200",
-    800: "#4e3a00",
-    900: "#1d1400",
+    50: "#fff7e6", // Lightest orange
+    100: "#ffe5b4", // Lighter orange (softened)
+    200: "#ffd399", // Adjusted to be less bright
+    300: "#ffbc00", // Lighter orange
+    400: "#d17100", // Your primary brand color
+    500: "#c16500", // Darker orange
+    600: "#a05200",
+    700: "#7d3e00",
+    800: "#592b00",
+    900: "#3c1a00", // Darkest orange
   },
   gray: {
+    50: "#f7f7f7", // Light gray
+    100: "#eaeaea",
+    200: "#d5d5d5",
+    300: "#b0b0b0",
+    400: "#8b8b8b",
+    500: "#666666",
+    600: "#444444",
+    700: "#222222",
+    800: "#1a1a1a",
+    900: "#0d0d0d",
     750: "#242C3A",
     850: "#191D28",
     1000: "#171923",
@@ -85,6 +71,7 @@ const card = defineStyle({
   },
   opacity: 1,
 });
+
 const refined = defineStyle({
   [$startColor.variable]: "colors.gray.100",
   [$endColor.variable]: "colors.gray.400",
@@ -102,28 +89,27 @@ const skeletonTheme = defineStyleConfig({
 export const components = {
   Button: {
     defaultProps: {
-      colorScheme: "blue",
+      colorScheme: "orange", // Change default color scheme to orange
     },
     variants: {
       outline: ({ colorMode, colorScheme }: StyleFunctionProps) => ({
         borderRadius: "lg",
-        borderColor:
-          colorScheme !== "red"
-            ? colorMode == "light"
-              ? "gray.300"
-              : "gray.600"
-            : undefined,
+        borderColor: colorScheme !== "red"
+          ? colorMode == "light"
+            ? "gray.300"
+            : "gray.600"
+          : undefined,
       }),
       ghost: () => ({
         borderRadius: "lg",
       }),
       solid: () => ({
-        bg: "blue.400",
+        bg: "#d17100", // Primary brand color
         borderRadius: "lg",
         color: "white",
         shadow: "inset 0 1px 0 0 rgb(255 255 255/.2)",
         _hover: {
-          bg: "blue.300",
+          bg: "orange.300", // Change hover to lighter orange
         },
       }),
     },
@@ -139,9 +125,6 @@ export const components = {
         borderColor: colorMode == "light" ? "gray.100" : "gray.700",
         shadow: "md",
       },
-      // content: ({ colorMode }: StyleFunctionProps) => ({
-      //   background: "white",
-      // }),
     }),
   },
   Input: {
@@ -211,7 +194,7 @@ export const components = {
         borderColor: colorMode == "light" ? "gray.100" : "gray.700",
         bg: colorMode == "light" ? "gray.200" : "gray.750",
         _checked: {
-          bg: "blue.300",
+          bg: "orange.300", // Change checked color to lighter orange
         },
       },
     }),
@@ -221,7 +204,7 @@ export const components = {
     baseStyle: () => ({
       control: {
         rounded: "md",
-        _checked: { background: "blue.400", borderColor: "blue.400" },
+        _checked: { background: "#d17100", borderColor: "#d17100" },
       },
       icon: { color: "white", padding: "2px" },
     }),
@@ -246,7 +229,7 @@ export const styles = {
 
 export const breakpoints = {
   base: "0em", // 0px
-  sm: "30em", // ~480px. em is a relative unit and is dependant on the font-size.
+  sm: "30em", // ~480px
   sd: "40em", // ~640px
   md: "48em", // ~768px
   lg: "62em", // ~992px

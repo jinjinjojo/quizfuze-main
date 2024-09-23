@@ -36,7 +36,7 @@ export const ThemePreview: React.FC<ThemePreviewProps> = ({
         <HStack>
           <Logo w="3" h="3" />
           <Box h="1" w="4" bg={mutedCard} rounded="sm" />
-          <Box h="2" w="4" bg="blue.400" rounded="sm" shadow="sm" />
+          <Box h="2" w="4" bg="#d17100" rounded="sm" shadow="sm" />
         </HStack>
         <Stack spacing="6px">
           <Stack spacing="2px">

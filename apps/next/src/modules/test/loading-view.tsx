@@ -111,7 +111,7 @@ const LoadingViewRaw = () => {
               right="-100px"
               bg="blue.200"
               _dark={{
-                bg: "blue.400",
+                bg: "#d17100",
               }}
               boxSize="400px"
               rounded="full"

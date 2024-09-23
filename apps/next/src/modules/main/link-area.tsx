@@ -174,9 +174,9 @@ export const Linkable: React.FC<LinkableProps> = ({
         <HStack spacing="3">
           <Box w="6" h="6" position="relative">
             <Box
-              color={!comingSoon ? "blue.400" : "gray.400"}
+              color={!comingSoon ? "#d17100" : "gray.400"}
               _dark={{
-                color: !comingSoon ? "blue.400" : "gray.600",
+                color: !comingSoon ? "#d17100" : "gray.600",
               }}
               position="absolute"
               filter="blur(2px)"

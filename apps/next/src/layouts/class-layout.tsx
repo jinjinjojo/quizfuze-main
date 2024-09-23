@@ -110,7 +110,7 @@ export const ClassLayout: React.FC<
                     <Box
                       w="full"
                       h="32"
-                      bgGradient={`linear(to-tr, blue.400, ${
+                      bgGradient={`linear(to-tr, #d17100, ${
                         bannerState || banner
                       })`}
                       rounded="2xl"
