@@ -11,3 +11,9 @@ public
 
 .gitignore
 .eslintignore
+
+src/hooks/use-dropzone/index.tsx
+src/lib/infer-ssr-props.ts
+src/modules/classes/change-section-modal.tsx
+src/modules/classes/invite-teachers-modal.tsx
+src/modules/editor/top-bar.tsx
