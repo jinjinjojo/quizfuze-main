@@ -131,7 +131,7 @@ export const EntityImage: React.FC<EntityImageProps> = ({
           <img
             width="44"
             height="44"
-            src={`${env.NEXT_PUBLIC_APP_URL}/avatars/quenti.png`}
+            src={`${env.NEXT_PUBLIC_APP_URL}/avatars/quizfuze.png`}
             tw="rounded-full"
           />
           <div
@@ -200,7 +200,7 @@ export const ProfileImage: React.FC<ProfileImageProps> = ({
         <img
           width="44"
           height="44"
-          src={`${env.NEXT_PUBLIC_APP_URL}/avatars/quenti.png`}
+          src={`${env.NEXT_PUBLIC_APP_URL}/avatars/quizfuze.png`}
         />
         <div
           style={{

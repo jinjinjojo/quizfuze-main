@@ -62,7 +62,7 @@ export const OrganizationInviteEmail = ({
             <Content>
               {BODY_COPY_BASE}{" "}
               <a
-                href="https://quizfuze.com/organizations"
+                href="https://app.quizfuze.com/organizations"
                 className="text-blue-500"
               >
                 Learn more
