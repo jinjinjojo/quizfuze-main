@@ -172,7 +172,7 @@ export const Navbar: React.FC = () => {
                   fontWeight={600}
                   rounded="xl"
                   _light={{
-                    bg: "black",
+                    bg: "#d17100",
                     color: "white",
                     _hover: {
                       bg: "gray.800",

@@ -29,6 +29,13 @@ const Document = () => {
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b83ff" />
         <meta name="msapplication-TileColor" content="#2d89ef" />
         <meta name="theme-color" content="#ffffff" />
+         <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+            crossOrigin="anonymous"
+            referrerPolicy="no-referrer"
+          />
       </Head>
       <body
         className={`overflow-x-hidden bg-gray-50 dark:bg-gray-900 ${outfit.variable} ${openSans.variable}`}

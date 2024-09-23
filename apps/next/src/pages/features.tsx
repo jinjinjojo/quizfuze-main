@@ -97,7 +97,7 @@ export default function Page() {
   const testimonials = [
     {
       quote:
-        "Quizfuze transformed my study habits. I&apos;ve seen a significant improvement in my test scores!",
+        "Quizfuze transformed my study habits. I have seen a significant improvement in my test scores!",
       author: "Sarah L., College Student",
     },
     {
@@ -107,7 +107,7 @@ export default function Page() {
     },
     {
       quote:
-        "The spaced repetition feature is a game-changer. I&apos;m retaining information much better now.",
+        "The spaced repetition feature is a game-changer. I am retaining information much better now.",
       author: "Alex R., Lifelong Learner",
     },
   ];
@@ -190,7 +190,7 @@ export default function Page() {
               Join thousands of students who are already benefiting from
               Quizfuze&apos;s powerful learning tools.
             </Text>
-            <Link href="/signup" passHref>
+            <Link href="/auth/signup" passHref>
               <Button as="a" colorScheme="blue" size="lg">
                 Get Started for Free
               </Button>
