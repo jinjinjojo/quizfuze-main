@@ -101,6 +101,7 @@ export const LeftNav: React.FC<LeftNavProps> = ({
             {session.user?.isOrgEligible && !earlyClassAccess && (
               <UnboundOnly strict>
                 <Button
+                  display="none"
                   as={Link}
                   href={
                     me.orgMembership
@@ -164,6 +165,7 @@ export const LeftNav: React.FC<LeftNavProps> = ({
               />
               <TeacherOnly>
                 <MenuOption
+                  display="none"
                   icon={<IconSchool size={20} />}
                   label="Class"
                   onClick={onClassClick}
@@ -176,9 +178,6 @@ export const LeftNav: React.FC<LeftNavProps> = ({
       {status === "unauthenticated" && (
         <ButtonGroup display={["none", "none", "flex"]} spacing="0" ml="4">
           <LinkButton href={`${WEBSITE_URL}/features`}>Features</LinkButton>
-          <LinkButton href={`${WEBSITE_URL}/organizations`}>
-            Organizations
-          </LinkButton>
           <LinkButton href={`${WEBSITE_URL}/pricing`}>Pricing</LinkButton>
         </ButtonGroup>
       )}
