@@ -77,7 +77,6 @@ export const LeftNav: React.FC<LeftNavProps> = ({
               color: "white",
             }}
             className="notranslate"
-            fontFamily={outfit.style.fontFamily}
             fontWeight={700}
             lineHeight={1.33}
           >
