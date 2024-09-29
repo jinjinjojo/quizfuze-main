@@ -60,8 +60,13 @@ export const LinkArea = () => {
         href={`/${id}/match?intro=true`}
         requireAuth
       />
-      <Linkable name="Crossword" icon={<IconGridDots />} comingSoon />
-      <Linkable name="Gravity" icon={<IconMeteor />} comingSoon />
+      {false && (
+        // remove crossword and gravity button
+        <>
+          <Linkable name="Crossword" icon={<IconGridDots />} comingSoon />
+          <Linkable name="Gravity" icon={<IconMeteor />} comingSoon />
+        </>
+      )}
     </SimpleGrid>
   );
 };
