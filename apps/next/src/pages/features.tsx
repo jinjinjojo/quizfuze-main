@@ -69,28 +69,28 @@ export default function Page() {
       icon: "fa-users",
     },
     {
-      title: "Mobile Learning",
+      title: "Rich Text Features",
       description:
-        "Study on-the-go with our mobile-friendly platform. Perfect for quick review sessions during your commute or break time.",
-      icon: "fa-mobile-alt",
+        "Emphasize important terms with bold, underline, and highlight options, making your study materials more engaging.",
+      icon: "fa-pencil-alt",
     },
     {
-      title: "Progress Tracking",
+      title: "Language Learning Support",
       description:
-        "Monitor your learning progress with detailed analytics. Identify areas for improvement and celebrate your achievements.",
-      icon: "fa-chart-line",
+        "Learn over 100 languages with built-in accent help and answer grading for effective language acquisition.",
+      icon: "fa-language",
     },
     {
-      title: "Customizable Flashcards",
+      title: "Command Menu & Shortcuts",
       description:
-        "Create rich, multimedia flashcards with text, images, and audio to cater to different learning styles.",
-      icon: "fa-clone",
+        "Navigate quickly and efficiently using our command menu and keyboard shortcuts to enhance your learning experience.",
+      icon: "fa-keyboard",
     },
     {
-      title: "Intelligent Quizzes",
+      title: "Unlimited Studying",
       description:
-        "Generate quizzes based on your study materials and performance, focusing on areas that need improvement.",
-      icon: "fa-question-circle",
+        "Access a vast array of study materials without any limits. Study whenever you want, for as long as you need.",
+      icon: "fa-infinity",
     },
   ];
 
@@ -107,8 +107,8 @@ export default function Page() {
     },
     {
       quote:
-        "The spaced repetition feature is a game-changer. I am retaining information much better now.",
-      author: "Alex R., Lifelong Learner",
+        "I like how Quizfuze is free forever, and works just as well as Quizlet. I can easily ace all of my exams because of this tool!",
+      author: "Alex R., 11th Grade Student",
     },
   ];
 
@@ -134,45 +134,6 @@ export default function Page() {
 
           <Box width="full">
             <Heading as="h2" size="xl" mb={6}>
-              Effective Study Techniques with Quizfuze
-            </Heading>
-            <Text fontSize="lg" mb={6}>
-              Quizfuze is designed to help you study smarter, not harder. Here
-              are some tips to maximize your learning:
-            </Text>
-            <VStack align="start" spacing={4} pl={4}>
-              <Text>
-                <strong>1. Active Recall:</strong> Use our flashcard feature to
-                test yourself frequently. This helps reinforce your memory and
-                identifies areas that need more focus.
-              </Text>
-              <Text>
-                <strong>2. Spaced Repetition:</strong> Let our algorithm
-                optimize your study schedule. We&apos;ll remind you to review
-                material just as you&apos;re about to forget it, strengthening
-                your long-term memory.
-              </Text>
-              <Text>
-                <strong>3. Teach Others:</strong> Utilize our collaborative
-                features to explain concepts to peers. Teaching is one of the
-                most effective ways to solidify your own understanding.
-              </Text>
-              <Text>
-                <strong>4. Visualize Information:</strong> Create mind maps and
-                diagrams within your study sets to connect ideas and improve
-                comprehension.
-              </Text>
-              <Text>
-                <strong>5. Take Regular Breaks:</strong> Use our mobile app for
-                short, frequent study sessions. This approach is more effective
-                than long cramming sessions and fits easily into your daily
-                routine.
-              </Text>
-            </VStack>
-          </Box>
-
-          <Box width="full">
-            <Heading as="h2" size="xl" mb={6}>
               What Our Users Say
             </Heading>
             <SimpleGrid columns={[1, null, 3]} spacing={10}>
@@ -187,8 +148,7 @@ export default function Page() {
               Ready to Elevate Your Learning?
             </Heading>
             <Text fontSize="lg" mb={6}>
-              Join thousands of students who are already benefiting from
-              Quizfuze&apos;s powerful learning tools.
+              Join Quizfuze Today!.
             </Text>
             <Link href="/auth/signup" passHref>
               <Button as="a" colorScheme="blue" size="lg">
