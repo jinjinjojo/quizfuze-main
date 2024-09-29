@@ -1,9 +1,16 @@
 import { PageWrapper } from "../../../common/page-wrapper";
 import { getLayout } from "../../../layouts/organization-layout";
 import { OrganizationSettings } from "../../../modules/organizations/pages/organization-settings";
+import { EmptyStudentsCard } from "../../../modules/organizations/empty-students-card";
 
 const Page = () => {
-  return <OrganizationSettings />;
+  const isComingSoon = true; // Replace this with your actual condition
+
+  return (
+    <>
+      {isComingSoon ? <EmptyStudentsCard /> : <OrganizationSettings />}
+    </>
+  );
 };
 
 Page.PageWrapper = PageWrapper;
