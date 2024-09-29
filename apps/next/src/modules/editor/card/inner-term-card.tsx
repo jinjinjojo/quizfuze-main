@@ -419,65 +419,68 @@ export const InnerTermCardRaw: React.FC<InnerTermCardProps> = ({
             <LanguageButtonPure type="definition" />
           </Flex>
         </Stack>
-        <Box mt="1" minW="80px" h="60px" position="relative">
-          {term.assetUrl ? (
-            <>
-              <PhotoView
-                src={resize({ src: term.assetUrl, width: 500 })}
-                borderRadius={12}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  width="80x"
-                  height="60px"
+        {false && ( 
+          //remove image & image button 
+          <Box mt="1" minW="80px" h="60px" position="relative">
+            {term.assetUrl ? (
+              <>
+                <PhotoView
                   src={resize({ src: term.assetUrl, width: 500 })}
-                  alt={`Image for ${term.definition}`}
-                  style={{
-                    cursor: "zoom-in",
-                    objectFit: "cover",
-                    width: "80px",
-                    height: "60px",
-                    borderRadius: "0.75rem",
-                  }}
-                />
-              </PhotoView>
-              {!readonly && (
-                <RemoveImageButton onClick={() => removeImage(term.id)} />
-              )}
-            </>
-          ) : (
-            <AddImageButton
-              isDisabled={readonly}
-              onClick={() => {
-                const {
-                  isDirty,
-                  word,
-                  definition,
-                  wordJson,
-                  definitionJson,
-                  wordRichText,
-                  definitionRichText,
-                } = getTermDelta();
-
-                // Empty term needs to be added
-                if (!isDirty && !added) {
-                  editTerm(
-                    term.id,
+                  borderRadius={12}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    width="80x"
+                    height="60px"
+                    src={resize({ src: term.assetUrl, width: 500 })}
+                    alt={`Image for ${term.definition}`}
+                    style={{
+                      cursor: "zoom-in",
+                      objectFit: "cover",
+                      width: "80px",
+                      height: "60px",
+                      borderRadius: "0.75rem",
+                    }}
+                  />
+                </PhotoView>
+                {!readonly && (
+                  <RemoveImageButton onClick={() => removeImage(term.id)} />
+                )}
+              </>
+            ) : (
+              <AddImageButton
+                isDisabled={readonly}
+                onClick={() => {
+                  const {
+                    isDirty,
                     word,
                     definition,
-                    wordRichText ? (wordJson as JSON) : undefined,
-                    definitionRichText ? (definitionJson as JSON) : undefined,
-                  );
-                }
+                    wordJson,
+                    definitionJson,
+                    wordRichText,
+                    definitionRichText,
+                  } = getTermDelta();
 
-                editorEventChannel.emit("openSearchImages", {
-                  termId: term.id,
-                  studySetId: id,
-                });
-              }}
-            />
-          )}
-        </Box>
+                  // Empty term needs to be added
+                  if (!isDirty && !added) {
+                    editTerm(
+                      term.id,
+                      word,
+                      definition,
+                      wordRichText ? (wordJson as JSON) : undefined,
+                      definitionRichText ? (definitionJson as JSON) : undefined,
+                    );
+                  }
+
+                  editorEventChannel.emit("openSearchImages", {
+                    termId: term.id,
+                    studySetId: id,
+                  });
+                }}
+              />
+            )}
+          </Box>
+        )}
       </HStack>
     </MotionStack>
   );

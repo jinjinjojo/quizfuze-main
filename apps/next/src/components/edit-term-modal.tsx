@@ -139,44 +139,49 @@ export const EditTermModal: React.FC<EditTermModalProps> = ({
               }}
             />
           </Stack>
-          {cachedAssetUrl ? (
-            <Box w="100px" h="80px" mt={{ base: 3, md: 0 }} position="relative">
-              <PhotoView src={resize({ src: cachedAssetUrl, width: 500 })}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  width={100}
-                  height={80}
-                  alt="Term asset"
-                  src={resize({ src: cachedAssetUrl, width: 500 })}
-                  style={{
-                    cursor: "zoom-in",
-                    width: 100,
-                    height: 80,
-                    objectFit: "cover",
-                    aspectRatio: "5 / 4",
-                    borderRadius: "6px",
+          {false && ( 
+            //remove image & image button 
+            <Box>
+            {cachedAssetUrl ? (
+              <Box w="100px" h="80px" mt={{ base: 3, md: 0 }} position="relative">
+                <PhotoView src={resize({ src: cachedAssetUrl, width: 500 })}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    width={100}
+                    height={80}
+                    alt="Term asset"
+                    src={resize({ src: cachedAssetUrl, width: 500 })}
+                    style={{
+                      cursor: "zoom-in",
+                      width: 100,
+                      height: 80,
+                      objectFit: "cover",
+                      aspectRatio: "5 / 4",
+                      borderRadius: "6px",
+                    }}
+                  />
+                </PhotoView>
+                <RemoveImageButton
+                  onClick={() => {
+                    if (!term) return;
+                    setCachedAssetUrl(null);
                   }}
                 />
-              </PhotoView>
-              <RemoveImageButton
+              </Box>
+            ) : (
+              <AddImageButton
+                w="100px"
+                h="80px"
                 onClick={() => {
                   if (!term) return;
-                  setCachedAssetUrl(null);
+                  editorEventChannel.emit("openSearchImages", {
+                    termId: term.id,
+                    studySetId: term.studySetId,
+                  });
                 }}
               />
+            )}
             </Box>
-          ) : (
-            <AddImageButton
-              w="100px"
-              h="80px"
-              onClick={() => {
-                if (!term) return;
-                editorEventChannel.emit("openSearchImages", {
-                  termId: term.id,
-                  studySetId: term.studySetId,
-                });
-              }}
-            />
           )}
         </Modal.Body>
         <Modal.Divider />

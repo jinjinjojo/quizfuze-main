@@ -236,57 +236,60 @@ export const DisplayableTerm: React.FC<DisplayableTermProps> = ({ term }) => {
               />
             </Text>
           )}
-          <Box minW="100px">
-            {assetUrl && (
-              <Box
-                minW="100px"
-                h="80px"
-                mt={{ base: 3, md: 0 }}
-                position="relative"
-              >
-                <PhotoView src={resize({ src: assetUrl, width: 500 })}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    width={100}
-                    height={80}
-                    alt="Term asset"
-                    src={resize({ src: assetUrl, width: 500 })}
-                    style={{
-                      cursor: "zoom-in",
-                      width: 100,
-                      height: 80,
-                      objectFit: "cover",
-                      aspectRatio: "5 / 4",
-                      borderRadius: "6px",
-                    }}
-                  />
-                </PhotoView>
-                {isEditing && (
-                  <RemoveImageButton
-                    onClick={() => {
-                      setAssetUrl(null);
-                      removeImage.mutate({
-                        id: term.id,
-                        studySetId: term.studySetId,
-                      });
-                    }}
-                  />
-                )}
-              </Box>
-            )}
-            {isEditing && !assetUrl && (
-              <AddImageButton
-                w="100px"
-                h="80px"
-                onClick={() => {
-                  editorEventChannel.emit("openSearchImages", {
-                    termId: term.id,
-                    studySetId: term.studySetId,
-                  });
-                }}
-              />
-            )}
-          </Box>
+          {false && ( 
+            //remove image & image button 
+            <Box minW="100px">
+              {assetUrl && (
+                <Box
+                  minW="100px"
+                  h="80px"
+                  mt={{ base: 3, md: 0 }}
+                  position="relative"
+                >
+                  <PhotoView src={resize({ src: assetUrl, width: 500 })}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      width={100}
+                      height={80}
+                      alt="Term asset"
+                      src={resize({ src: assetUrl, width: 500 })}
+                      style={{
+                        cursor: "zoom-in",
+                        width: 100,
+                        height: 80,
+                        objectFit: "cover",
+                        aspectRatio: "5 / 4",
+                        borderRadius: "6px",
+                      }}
+                    />
+                  </PhotoView>
+                  {isEditing && (
+                    <RemoveImageButton
+                      onClick={() => {
+                        setAssetUrl(null);
+                        removeImage.mutate({
+                          id: term.id,
+                          studySetId: term.studySetId,
+                        });
+                      }}
+                    />
+                  )}
+                </Box>
+              )}
+              {isEditing && !assetUrl && (
+                <AddImageButton
+                  w="100px"
+                  h="80px"
+                  onClick={() => {
+                    editorEventChannel.emit("openSearchImages", {
+                      termId: term.id,
+                      studySetId: term.studySetId,
+                    });
+                  }}
+                />
+              )}
+            </Box>
+           )}
         </Flex>
         <Box
           h="full"
