@@ -150,7 +150,7 @@ export const EditTermModal: React.FC<EditTermModalProps> = ({
                     width={100}
                     height={80}
                     alt="Term asset"
-                    src={resize({ src: cachedAssetUrl || '', width: 500 })}
+                    src={resize({ src: cachedAssetUrl as string, width: 500 })}
                     style={{
                       cursor: "zoom-in",
                       width: 100,
