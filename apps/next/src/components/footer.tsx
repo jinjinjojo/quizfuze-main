@@ -126,25 +126,25 @@ export const Footer = () => {
               <SocialLinksContainer />
             </Box>
             <FooterLink href={WEBSITE_URL} text="Home" />
-            <FooterLink href={`${WEBSITE_URL}/pricing`} text="Pricing" />
-            <FooterLink
-              href="https://github.com/quenti-io/quenti"
+            {/* <FooterLink href={`${WEBSITE_URL}/pricing`} text="Pricing" /> */}
+            {/* <FooterLink
+              href="https://github.com/jinjinjojo/quizfuze-main"
               text="Open source"
-            />
+            /> */}
             <FooterLink href="https://status.quizfuze.com" text="Status" />
-            <FooterLink
+            {/* <FooterLink
               href={`${WEBSITE_URL}/organizations`}
               text="Organizations"
-            />
+            /> */}
             <FooterLink
               href={`mailto:${SUPPORT_EMAIL}`}
               text="Contact support"
             />
-            <FooterLink href={`${WEBSITE_URL}/privacy`} text="Privacy Policy" />
-            <FooterLink href={`${WEBSITE_URL}/terms`} text="Terms of Service" />
+            <FooterLink href={`${WEBSITE_URL}/privacy-policy`} text="Privacy Policy" />
+            <FooterLink href={`${WEBSITE_URL}/terms-of-service`} text="Terms of Service" />
             <FooterLink
-              href="https://github.com/quenti-io/quenti/blob/main/LICENSE"
-              text="License"
+              href="https://github.com/jinjinjojo/quizfuze-main"
+              text="Contribute Here"
             />
           </HStack>
           <Flex
@@ -161,6 +161,12 @@ export const Footer = () => {
 };
 
 const SocialLinksContainer = () => {
+  const condition = false; // Change this to your actual condition
+
+  if (!condition) {
+    return null; // or return <></> for an empty fragment
+  }
+
   return (
     <HStack spacing="3">
       <SocialLink href="https://github.com/quenti-io">
@@ -172,6 +178,7 @@ const SocialLinksContainer = () => {
     </HStack>
   );
 };
+
 
 const ThemeSwitcher = () => {
   return (

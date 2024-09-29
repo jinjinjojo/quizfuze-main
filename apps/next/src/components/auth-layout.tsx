@@ -313,7 +313,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
                       >
                         By signing up, you agree to the{" "}
                         <Link
-                          href={`${WEBSITE_URL}/terms`}
+                          href={`${WEBSITE_URL}/terms-of-service`}
                           _hover={{
                             textDecoration: "underline",
                           }}
@@ -322,7 +322,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
                         </Link>{" "}
                         and{" "}
                         <Link
-                          href={`${WEBSITE_URL}/privacy`}
+                          href={`${WEBSITE_URL}/privacy-policy`}
                           _hover={{
                             textDecoration: "underline",
                           }}
