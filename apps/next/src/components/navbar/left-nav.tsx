@@ -3,7 +3,7 @@ import NextLink from "next/link";
 import React from "react";
 
 import { Link } from "@quenti/components";
-import { outfit } from "@quenti/lib/chakra-theme";
+// import { outfit } from "@quenti/lib/chakra-theme";
 import { WEBSITE_URL } from "@quenti/lib/constants/url";
 import { EnabledFeature } from "@quenti/lib/feature";
 
