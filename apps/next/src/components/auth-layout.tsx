@@ -305,35 +305,38 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
                         </Text>
                       </Stack>
                     </Flex>
-                    {mode == "signup" && (
-                      <Text
-                        textAlign="center"
-                        fontSize="xs"
-                        color={termsColor}
-                        maxW="260px"
-                        mt="-4"
+                    <Text
+                      textAlign="center"
+                      fontSize="xs"
+                      color={termsColor}
+                      maxW="260px"
+                      mt="-4"
+                    >
+                      {mode === "signup" ? (
+                        "By signing up, you agree to the "
+                      ) : (
+                        "By logging in, you agree to the "
+                      )}
+                      <Link
+                        href={`${WEBSITE_URL}/terms-of-service`}
+                        _hover={{
+                          textDecoration: "underline",
+                        }}
                       >
-                        By signing up, you agree to the{" "}
-                        <Link
-                          href={`${WEBSITE_URL}/terms-of-service`}
-                          _hover={{
-                            textDecoration: "underline",
-                          }}
-                        >
-                          Privacy Policy
-                        </Link>{" "}
-                        and{" "}
-                        <Link
-                          href={`${WEBSITE_URL}/privacy-policy`}
-                          _hover={{
-                            textDecoration: "underline",
-                          }}
-                        >
-                          Terms of Service
-                        </Link>
-                        .
-                      </Text>
-                    )}
+                        Privacy Policy
+                      </Link>{" "}
+                      and{" "}
+                      <Link
+                        href={`${WEBSITE_URL}/privacy-policy`}
+                        _hover={{
+                          textDecoration: "underline",
+                        }}
+                      >
+                        Terms of Service
+                      </Link>
+                      .
+                    </Text>
+
                   </VStack>
                 </Fade>
               </Container>
