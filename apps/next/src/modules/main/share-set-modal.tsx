@@ -1,7 +1,9 @@
 import React from "react";
+
 import { Link } from "@quenti/components";
 import { Modal } from "@quenti/components/modal";
 import { WEBSITE_URL } from "@quenti/lib/constants/url";
+import { api } from "@quenti/trpc";
 
 import {
   Button,
@@ -32,7 +34,12 @@ export const ShareSetModal: React.FC<ShareSetModalProps> = ({
   const { id, visibility } = useSet();
   const toast = useToast();
 
-  // Directly use the current website URL
+  const getShareId = api.studySets.getShareId.useQuery(
+    { studySetId: id },
+    {
+      enabled: isOpen && visibility !== "Private",
+    },
+  );
   const url = `${WEBSITE_URL}/_${id}`;
 
   const copy = async () => {
@@ -58,9 +65,9 @@ export const ShareSetModal: React.FC<ShareSetModalProps> = ({
           <Modal.Body>
             <Modal.Heading>
               <HStack>
-                {visibility === "Private" && <IconLock size={32} />}
+                {visibility == "Private" && <IconLock size={32} />}
                 <>
-                  {visibility === "Private"
+                  {visibility == "Private"
                     ? "This set is private"
                     : "Share this set"}
                 </>
@@ -68,15 +75,18 @@ export const ShareSetModal: React.FC<ShareSetModalProps> = ({
             </Modal.Heading>
             {visibility !== "Private" ? (
               <HStack spacing="3" pb="4">
-                <Skeleton width="full" rounded="lg">
+                <Skeleton
+                  width="full"
+                  rounded="lg"
+                  isLoaded={!!getShareId.data}
+                >
                   <Input
                     spellCheck={false}
                     fontWeight={600}
-                    value={url}
-                    readOnly
+                    value={getShareId.isLoading ? "Loading..." : url}
                   />
                 </Skeleton>
-                <Skeleton rounded="lg">
+                <Skeleton rounded="lg" isLoaded={!!getShareId.data}>
                   <Button onClick={copy} variant="outline">
                     Copy link
                   </Button>
@@ -89,7 +99,7 @@ export const ShareSetModal: React.FC<ShareSetModalProps> = ({
               </Text>
             )}
           </Modal.Body>
-          {visibility === "Private" ? (
+          {visibility == "Private" ? (
             <>
               <Modal.Divider />
               <Modal.Footer>
@@ -102,7 +112,9 @@ export const ShareSetModal: React.FC<ShareSetModalProps> = ({
                 </Button>
               </Modal.Footer>
             </>
-          ) : null}
+          ) : (
+            <></>
+          )}
         </Modal.Content>
       </Modal>
     </ToastWrapper>
