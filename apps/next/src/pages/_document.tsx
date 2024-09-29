@@ -39,7 +39,7 @@ const Document = () => {
 
           <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3607596333406194" crossOrigin="anonymous"></script>
 
-          {/* Google Tag (gtag.js) */}
+         {/* Google Tag (gtag.js) */}
           <script async src="https://www.googletagmanager.com/gtag/js?id=G-35YCSYCQTR"></script>
           <script
             dangerouslySetInnerHTML={{
@@ -50,6 +50,7 @@ const Document = () => {
                 gtag('config', 'G-35YCSYCQTR');
               `,
             }}
+          />
       </Head>
       <body
         className={`overflow-x-hidden bg-gray-50 dark:bg-gray-900 ${outfit.variable} ${openSans.variable}`}
