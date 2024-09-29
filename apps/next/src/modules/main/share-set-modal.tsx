@@ -40,7 +40,7 @@ export const ShareSetModal: React.FC<ShareSetModalProps> = ({
       enabled: isOpen && visibility !== "Private",
     },
   );
-  const url = `${WEBSITE_URL}/_${id}`;
+  const url = `${WEBSITE_URL}/${id}`;
 
   const copy = async () => {
     await navigator.clipboard.writeText(url);
