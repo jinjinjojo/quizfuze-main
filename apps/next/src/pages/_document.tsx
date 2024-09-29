@@ -36,8 +36,8 @@ const Document = () => {
             crossOrigin="anonymous"
             referrerPolicy="no-referrer"
           />
-          
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3607596333406194" crossorigin="anonymous"></script>
+
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3607596333406194" crossOrigin="anonymous"></script>
       </Head>
       <body
         className={`overflow-x-hidden bg-gray-50 dark:bg-gray-900 ${outfit.variable} ${openSans.variable}`}
