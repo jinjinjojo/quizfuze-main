@@ -1,6 +1,7 @@
 import React from "react";
 import { createStore, useStore } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
+import type { Distractor } from "@quenti/interfaces";
 
 import type {
   Question,
@@ -103,9 +104,19 @@ export const createLearnStore = (initProps?: Partial<LearnStoreProps>) => {
         set({
           mode,
           answerMode,
-          studiableTerms,
+          studiableTerms: termsWithDistractors.map(term => ({
+            ...term,
+            distractors: term.distractors.map(d => ({
+              id: `${term.id}-${d.distractingId}`,
+              distractingId: d.distractingId,
+              termId: d.termId,
+              type: d.type,
+              createdAt: new Date(),
+              updatedAt: new Date()
+            } as Distractor))
+          })) as StudiableTermWithDistractors[],
           allTerms,
-          numTerms: studiableTerms.length,
+          numTerms: termsWithDistractors.length,
           currentRound: round,
           specialCharacters,
         });
