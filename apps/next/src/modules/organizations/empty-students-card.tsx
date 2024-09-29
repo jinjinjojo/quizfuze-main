@@ -1,17 +1,15 @@
 import { HStack, Heading, Stack, Text } from "@chakra-ui/react";
-
-import { IconUsers } from "@tabler/icons-react";
+import { IconClock } from "@tabler/icons-react";  // Changed icon import
 
 export const EmptyStudentsCard = () => {
   return (
     <Stack>
       <HStack spacing="4">
-        <IconUsers size={32} />
-        <Heading>No students</Heading>
+        <IconClock size={32} /> {/* Changed the icon */}
+        <Heading>Coming soon</Heading> {/* Changed the text */}
       </HStack>
       <Text color="gray.500">
-        Accounts with emails ending in your organization&apos;s domain will show
-        up here
+        Coming soon...
       </Text>
     </Stack>
   );
