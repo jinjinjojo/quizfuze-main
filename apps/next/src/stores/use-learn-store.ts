@@ -82,6 +82,14 @@ export const createLearnStore = (initProps?: Partial<LearnStoreProps>) => {
       ...DEFAULT_PROPS,
       ...initProps,
       initialize: (mode, answerMode, studiableTerms, allTerms, round) => {
+        console.log("initialize - input data:", {
+          mode,
+          answerMode,
+          studiableTerms,
+          allTerms,
+          round
+        });
+
         const words =
           answerMode != "Both"
             ? studiableTerms.map((x) => word(answerMode, x, "answer"))
@@ -101,7 +109,23 @@ export const createLearnStore = (initProps?: Partial<LearnStoreProps>) => {
           ),
         );
 
-        set({
+        // Ensure all terms have distractors
+        const termsWithDistractors = studiableTerms.map((term) => {
+          if (term.distractors.length === 0) {
+            const otherTerms = allTerms.filter((t) => t.id !== term.id);
+            const distractors = otherTerms
+              .slice(0, 3)
+              .map((t) => ({
+                distractingId: t.id,
+                termId: term.id,
+                type: answerMode as StudySetAnswerMode
+              }));
+            return { ...term, distractors };
+          }
+          return term;
+        });
+
+       set({
           mode,
           answerMode,
           studiableTerms: termsWithDistractors.map(term => ({
@@ -284,22 +308,19 @@ export const createLearnStore = (initProps?: Partial<LearnStoreProps>) => {
 
           const termsThisRound = incorrectTerms
             .concat(
-              // Add the familiar terms that haven't been seen at least 2 rounds ago
               familiarTermsWithRound.filter(
                 (x) => currentRound - x.appearedInRound! >= 2,
               ),
             )
             .concat(unstudied)
-            .concat(familiarTerms) // Add the rest of the familar terms if there's nothing else left
+            .concat(familiarTerms)
             .slice(0, LEARN_TERMS_IN_ROUND);
 
-          // For each term that hasn't been seen (correctness == 0), set the round it appeared in as the current round
           termsThisRound.forEach((x) => {
             if (x.correctness == 0) x.appearedInRound = currentRound;
           });
 
           const roundTimeline: Question[] = termsThisRound.map((term) => {
-            const choice = term.correctness < 1;
             const answerMode: StudySetAnswerMode =
               state.answerMode != "Both"
                 ? state.answerMode
@@ -307,35 +328,35 @@ export const createLearnStore = (initProps?: Partial<LearnStoreProps>) => {
                   ? "Definition"
                   : "Word";
 
-            if (choice) {
-              const distractorIds = term.distractors
-                .filter((x) => x.type == answerMode)
-                .map((x) => x.distractingId);
-              const distractors = state.allTerms.filter((x) =>
-                distractorIds.includes(x.id),
-              );
+            const distractorIds = term.distractors
+              .filter((x) => x.type == answerMode)
+              .map((x) => x.distractingId);
+            let distractors = state.allTerms.filter((x) =>
+              distractorIds.includes(x.id)
+            );
 
-              const choices = shuffleArray(distractors.concat(term));
-
-              return {
-                answerMode,
-                choices,
-                term,
-                type: "choice",
-              };
-            } else {
-              return {
-                answerMode,
-                choices: [],
-                term,
-                type: "write",
-              };
+            if (distractors.length < 3) {
+              const additionalDistractors = state.allTerms
+                .filter((x) => x.id !== term.id && !distractorIds.includes(x.id))
+                .slice(0, 3 - distractors.length);
+              distractors = [...distractors, ...additionalDistractors];
             }
+
+            const numberOfChoices = Math.min(4, distractors.length + 1);
+            const choices = shuffleArray([term, ...distractors])
+              .slice(0, numberOfChoices);
+
+            console.log("Generated choices for term:", term.id, choices);
+
+            return {
+              answerMode,
+              choices,
+              term,
+              type: "choice",
+            };
           });
 
-          const hasMissedTerms = !!state.studiableTerms.find(
-            (x) => x.incorrectCount > 0,
-          );
+          console.log("nextRound - roundTimeline:", roundTimeline);
 
           return {
             roundSummary: undefined,
@@ -346,7 +367,9 @@ export const createLearnStore = (initProps?: Partial<LearnStoreProps>) => {
             answered: undefined,
             status: undefined,
             completed: !termsThisRound.length,
-            hasMissedTerms,
+            hasMissedTerms: !!state.studiableTerms.find(
+              (x) => x.incorrectCount > 0,
+            ),
             currentRound,
           };
         });
@@ -365,6 +388,13 @@ export const LearnContext = React.createContext<LearnStore | null>(null);
 export const useLearnContext = <T>(selector: (state: LearnState) => T): T => {
   const store = React.useContext(LearnContext);
   if (!store) throw new Error("Missing LearnContext.Provider in the tree");
+
+  console.log("useLearnContext - current state:", {
+    roundTimeline: store.getState().roundTimeline,
+    termsThisRound: store.getState().termsThisRound,
+    roundCounter: store.getState().roundCounter,
+    currentQuestion: store.getState().roundTimeline[store.getState().roundCounter]
+  });
 
   return useStore(store, selector);
 };
