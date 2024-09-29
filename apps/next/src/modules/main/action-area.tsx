@@ -59,6 +59,7 @@ export const ActionArea = () => {
         <ActionButton
           label="Add to folder"
           icon={IconPlus}
+          display="none"
           onClick={() => setAddToFolder(true)}
           unauthedMessage="Create an account for free to make folders and save sets to them"
         />

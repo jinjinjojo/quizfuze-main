@@ -161,6 +161,7 @@ export const LeftNav: React.FC<LeftNavProps> = ({
               <MenuOption
                 icon={<IconFolder size={20} />}
                 label="Folder"
+                display="none"
                 onClick={onFolderClick}
               />
               <TeacherOnly>

@@ -160,6 +160,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                 <MenuOption
                   icon={<IconFolder size={20} />}
                   label="Folder"
+                  display="none"
                   onClick={onFolderClick}
                 />
                 <TeacherOnly>
