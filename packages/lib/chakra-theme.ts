@@ -1,4 +1,4 @@
-import { Open_Sans, Outfit } from "next/font/google";
+import { Open_Sans, Outfit, Montserrat } from "next/font/google"; // Added Montserrat import
 import {
   type ChakraProps,
   type ChakraTheme,
@@ -20,6 +20,13 @@ export const openSans = Open_Sans({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-open-sans",
+});
+
+export const montserrat = Montserrat({ // New Montserrat font
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-montserrat",
 });
 
 export const config = { initialColorMode: "light", useSystemColorMode: false };
@@ -238,7 +245,10 @@ export const breakpoints = {
 };
 
 export const theme = extendTheme({
-  fonts,
+  fonts: {
+    heading: montserrat.style.fontFamily,
+    body: montserrat.style.fontFamily,
+  },
   components,
   colors,
   config,
