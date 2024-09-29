@@ -56,13 +56,14 @@ export const ActionArea = () => {
         onClose={() => setExportOpen(false)}
       />
       <ButtonGroup isAttached colorScheme="gray" size="lg" rounded="xl">
-        <ActionButton
-          label="Add to folder"
-          icon={IconPlus}
-          display="none"
-          onClick={() => setAddToFolder(true)}
-          unauthedMessage="Create an account for free to make folders and save sets to them"
-        />
+        {false && (
+          <ActionButton
+            label="Add to folder"
+            icon={IconPlus}
+            onClick={() => setAddToFolder(true)}
+            unauthedMessage="Create an account for free to make folders and save sets to them"
+          />
+        )}
         <ActionButton
           label="Share"
           icon={IconShare}
