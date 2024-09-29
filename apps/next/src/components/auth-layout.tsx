@@ -201,92 +201,95 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
                         >
                           Sign {verb} with Google
                         </Button>
-                        <Box>
-                          <Stack
-                            my={expanded ? 4 : 0}
-                            mb={expanded ? 3 : 0}
-                            h={expanded ? "74px" : "0px"}
-                            overflow="hidden"
-                            px="1"
-                            w="calc(100% + 8px)"
-                            ml="-1"
-                            transition="all 0.15s ease-in-out"
-                          >
-                            <Box
-                              top="0"
-                              w="full"
-                              minH="2px"
-                              bg="gray.100"
-                              _dark={{
-                                bg: "gray.750",
-                              }}
-                              rounded="full"
-                              mb="3"
-                            />
-                            <Controller
-                              name="email"
-                              control={emailMethods.control}
-                              render={({ field: { value, onChange } }) => (
-                                <FormControl isInvalid={!!errors.email}>
-                                  <Input
-                                    ref={emailInputRef}
-                                    value={value}
-                                    onChange={onChange}
-                                    mt="2"
-                                    minH="40px"
-                                    placeholder="Enter your email address"
-                                    fontSize="sm"
-                                    borderColor="gray.300"
-                                    _dark={{
-                                      borderColor: "gray.600",
-                                    }}
-                                  />
-                                </FormControl>
-                              )}
-                            ></Controller>
-                          </Stack>
-                          <Button
-                            w="full"
-                            size="lg"
-                            fontSize="sm"
-                            variant="outline"
-                            shadow="0 4px 6px -1px rgba(0, 0, 0, 0.04),0 2px 4px -1px rgba(0, 0, 0, 0.01)"
-                            colorScheme="gray"
-                            onClick={() => {
-                              if (!expanded) {
-                                setExpanded(true);
-                                setTimeout(() => {
-                                  setAnimationFinished(true);
-                                  emailInputRef.current?.focus();
-                                }, 200);
-                              }
-                            }}
-                            type={animationFinished ? "submit" : undefined}
-                            overflow="hidden"
-                            isLoading={magicLinkLoading}
-                          >
+                        {false && (
+                          // Remove email button
+                          <Box>
                             <Stack
-                              h="48px"
-                              transform={
-                                expanded
-                                  ? "translateY(0px)"
-                                  : "translateY(-48px)"
-                              }
-                              transition="all 0.5s cubic-bezier(0.25, 1, 0.5, 1)"
-                              spacing="0"
+                              my={expanded ? 4 : 0}
+                              mb={expanded ? 3 : 0}
+                              h={expanded ? "74px" : "0px"}
+                              overflow="hidden"
+                              px="1"
+                              w="calc(100% + 8px)"
+                              ml="-1"
+                              transition="all 0.15s ease-in-out"
                             >
-                              <Center minH="48px">
-                                <HStack>
-                                  <IconWand size={16} />
-                                  <Text>Send me a magic link</Text>
-                                </HStack>
-                              </Center>
-                              <Center minH="48px">
-                                <Text>Sign {verb} with email</Text>
-                              </Center>
+                              <Box
+                                top="0"
+                                w="full"
+                                minH="2px"
+                                bg="gray.100"
+                                _dark={{
+                                  bg: "gray.750",
+                                }}
+                                rounded="full"
+                                mb="3"
+                              />
+                              <Controller
+                                name="email"
+                                control={emailMethods.control}
+                                render={({ field: { value, onChange } }) => (
+                                  <FormControl isInvalid={!!errors.email}>
+                                    <Input
+                                      ref={emailInputRef}
+                                      value={value}
+                                      onChange={onChange}
+                                      mt="2"
+                                      minH="40px"
+                                      placeholder="Enter your email address"
+                                      fontSize="sm"
+                                      borderColor="gray.300"
+                                      _dark={{
+                                        borderColor: "gray.600",
+                                      }}
+                                    />
+                                  </FormControl>
+                                )}
+                              ></Controller>
                             </Stack>
-                          </Button>
-                        </Box>
+                            <Button
+                              w="full"
+                              size="lg"
+                              fontSize="sm"
+                              variant="outline"
+                              shadow="0 4px 6px -1px rgba(0, 0, 0, 0.04),0 2px 4px -1px rgba(0, 0, 0, 0.01)"
+                              colorScheme="gray"
+                              onClick={() => {
+                                if (!expanded) {
+                                  setExpanded(true);
+                                  setTimeout(() => {
+                                    setAnimationFinished(true);
+                                    emailInputRef.current?.focus();
+                                  }, 200);
+                                }
+                              }}
+                              type={animationFinished ? "submit" : undefined}
+                              overflow="hidden"
+                              isLoading={magicLinkLoading}
+                            >
+                              <Stack
+                                h="48px"
+                                transform={
+                                  expanded
+                                    ? "translateY(0px)"
+                                    : "translateY(-48px)"
+                                }
+                                transition="all 0.5s cubic-bezier(0.25, 1, 0.5, 1)"
+                                spacing="0"
+                              >
+                                <Center minH="48px">
+                                  <HStack>
+                                    <IconWand size={16} />
+                                    <Text>Send me a magic link</Text>
+                                  </HStack>
+                                </Center>
+                                <Center minH="48px">
+                                  <Text>Sign {verb} with email</Text>
+                                </Center>
+                              </Stack>
+                            </Button>
+                          </Box>
+                        )}
                       </Stack>
                     </form>
                     <Flex gap="6px" ml="-2px">
@@ -298,8 +301,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
                           If Google has blocked your school&apos;s access
                         </Text>
                         <Text fontSize="sm" color="gray.500">
-                          No worries, sign {verb} with email instead, and
-                          we&apos;ll send you a link to instantly log in.
+                          Try to sign {verb} using your personal account instead.
                         </Text>
                       </Stack>
                     </Flex>
