@@ -142,7 +142,7 @@ export const EditTermModal: React.FC<EditTermModalProps> = ({
           {false && ( 
             //remove image & image button 
             <Box>
-            {cachedAssetUrl ? (
+            {typeof cachedAssetUrl === 'string' && cachedAssetUrl ? (
               <Box w="100px" h="80px" mt={{ base: 3, md: 0 }} position="relative">
                 <PhotoView src={resize({ src: cachedAssetUrl, width: 500 })}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
