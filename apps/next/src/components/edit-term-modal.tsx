@@ -144,7 +144,7 @@ export const EditTermModal: React.FC<EditTermModalProps> = ({
             <Box>
             {typeof cachedAssetUrl === 'string' && cachedAssetUrl ? (
               <Box w="100px" h="80px" mt={{ base: 3, md: 0 }} position="relative">
-                <PhotoView src={resize({ src: cachedAssetUrl, width: 500 })}>
+                <PhotoView src={resize({ src: cachedAssetUrl as string, width: 500 })}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     width={100}
