@@ -58,3 +58,8 @@ yarn-error.log*
 .react-email
 
 .turbo
+
+./import-flashcards.sh
+./import-flashcards.js
+
+.imported-sets
