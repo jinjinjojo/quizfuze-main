@@ -16,7 +16,7 @@ async function importFlashcards() {
               definition: card.definition
             }))
           },
-          userId: 'cm1qwea6u0001ib036o1hvp8y',  // Quizfuze Account User ID
+          userId: 'cm1qwea6u0001ib036o1hvp8y',  //! OFFICIAL Quizfuze Account User ID
           visibility: 'Public'     // Set visibility as per your preference
         }
       });
