@@ -21,6 +21,9 @@ export const DescriptionArea = () => {
   const { description, user } = useSet();
   const highlight = useColorModeValue("blue.500", "blue.200");
 
+  // Check if the user ID is not equal to the specified ID
+  const shouldRenderHStack = user && user.userId !== "cm1qwea6u0001ib036o1hvp8y"; //! OFFICIAL QUIZFUZE USER ID
+
   return (
     <Stack spacing={8}>
       <Flex
@@ -28,34 +31,41 @@ export const DescriptionArea = () => {
         flexDir={{ base: "column", sm: "row" }}
         gap={{ base: 8, sm: 0 }}
       >
-        <HStack spacing={4}>
-          <Avatar src={avatarUrl(user)} size="md" className="highlight-block" />
-          <Stack spacing={0}>
-            <HStack spacing="2">
-              <Link
-                fontWeight={700}
-                href={`/@${user.username}`}
-                transition="color 0.2s ease-in-out"
-                _hover={{ color: highlight }}
-                className="highlight-block"
-              >
-                {user.username}
-              </Link>
-              {user.verified && (
-                <Box color="blue.300">
-                  <Tooltip label="Verified">
-                    <IconDiscountCheck size={20} aria-label="Verified" />
-                  </Tooltip>
-                </Box>
+        {/* Conditionally render HStack and its contents */}
+        {shouldRenderHStack ? (
+          <HStack spacing={4}>
+            {/* Avatar area for flashcard sets */}
+            <Avatar src={avatarUrl(user)} size="md" className="highlight-block" />
+            <Stack spacing={0}>
+              <HStack spacing="2">
+                <Link
+                  fontWeight={700}
+                  href={`/@${user.username}`}
+                  transition="color 0.2s ease-in-out"
+                  _hover={{ color: highlight }}
+                  className="highlight-block"
+                >
+                  {user.username}
+                </Link>
+                {user.verified && (
+                  <Box color="blue.300">
+                    <Tooltip label="Verified">
+                      <IconDiscountCheck size={20} aria-label="Verified" />
+                    </Tooltip>
+                  </Box>
+                )}
+              </HStack>
+              {user.name && (
+                <Text fontSize="sm" color="gray.500" fontWeight={600}>
+                  {user.name}
+                </Text>
               )}
-            </HStack>
-            {user.name && (
-              <Text fontSize="sm" color="gray.500" fontWeight={600}>
-                {user.name}
-              </Text>
-            )}
-          </Stack>
-        </HStack>
+            </Stack>
+          </HStack>
+        ) : (
+          <Avatar src={avatarUrl(user)} size="md" className="highlight-block" />
+        )}
+        
         <ActionArea />
       </Flex>
       <Text whiteSpace="pre-wrap">{description}</Text>
