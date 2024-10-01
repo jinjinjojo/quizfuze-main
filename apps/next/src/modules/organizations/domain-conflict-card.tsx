@@ -13,8 +13,6 @@ import {
 
 import { IconAlertCircleFilled } from "@tabler/icons-react";
 
-import { ORG_SUPPORT_EMAIL } from "../../../../../packages/lib/constants/email";
-
 interface DomainConflictCardProps {
   domain: string;
 }

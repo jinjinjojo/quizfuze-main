@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import React from "react";
 
 import { Link } from "@quenti/components";
-import { ORG_SUPPORT_EMAIL } from "@quenti/lib/constants/email";
 
 import {
   Box,
@@ -64,7 +63,7 @@ export default function OrgDomainFilter() {
             <br />
             <br />
             Need help or have a more difficult scenario? Feel free to reach out
-            to us at{" "}
+            to us{" "}
             <Link
               href={`https://xym9wd0ocdt.typeform.com/to/JNI0mxjn`}
               color={linkDefault}
@@ -72,7 +71,7 @@ export default function OrgDomainFilter() {
               transition="color 0.2s ease-in-out"
               _hover={{ color: highlight }}
             >
-              {ORG_SUPPORT_EMAIL}
+              here
             </Link>
             .
           </>
