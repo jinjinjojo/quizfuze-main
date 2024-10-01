@@ -4,7 +4,7 @@ import { OrganizationSettings } from "../../../modules/organizations/pages/organ
 import { EmptyStudentsCard } from "../../../modules/organizations/empty-students-card";
 
 const Page = () => {
-  const isComingSoon = true; // Replace this with your actual condition
+  const isComingSoon = false; // Replace this with your actual condition
 
   return (
     <>
