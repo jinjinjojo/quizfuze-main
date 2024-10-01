@@ -66,7 +66,7 @@ export default function OrgDomainFilter() {
             Need help or have a more difficult scenario? Feel free to reach out
             to us at{" "}
             <Link
-              href={`mailto:${ORG_SUPPORT_EMAIL}`}
+              href={`https://xym9wd0ocdt.typeform.com/to/JNI0mxjn`}
               color={linkDefault}
               fontWeight={700}
               transition="color 0.2s ease-in-out"

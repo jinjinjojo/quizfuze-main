@@ -72,7 +72,7 @@ export const OrganizationBilling = () => {
       <strong>{domain}</strong> has already been verified by another
       organization. Please reach out to us at{" "}
       <Link
-        href={`mailto:${ORG_SUPPORT_EMAIL}`}
+        href={`https://xym9wd0ocdt.typeform.com/to/JNI0mxjn`}
         color="blue.300"
         transition="color 0.2s ease-in-out"
         _hover={{ color: highlight }}

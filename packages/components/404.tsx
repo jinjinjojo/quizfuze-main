@@ -189,7 +189,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({
             </Button>
             <Button
               as={Link}
-              href={`mailto:${SUPPORT_EMAIL}`}
+              href={`https://xym9wd0ocdt.typeform.com/to/JNI0mxjn`}
               variant="ghost"
               colorScheme="gray"
             >

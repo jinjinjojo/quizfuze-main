@@ -34,7 +34,7 @@ export const OrganizationDeletionEmail = ({
               You&apos;re receiving this email because your organization{" "}
               <strong>{orgName}</strong> has been requested for deletion. If you
               believe this was a mistake, please{" "}
-              <a href={`mailto:${ORG_SUPPORT_EMAIL}`}>contact us</a>{" "}
+              <a href={`https://xym9wd0ocdt.typeform.com/to/JNI0mxjn`}>contact us</a>{" "}
               immediately.
             </Content>
           </MainContainer>

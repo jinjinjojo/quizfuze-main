@@ -47,15 +47,15 @@ export const DomainConflictCard: React.FC<DomainConflictCardProps> = ({
           </HStack>
           <Text fontSize="sm" color={mutedColor}>
             This domain has already been verified by another organization.
-            Please reach out to us at{" "}
+            Please reach out to us{" "}
             <Link
-              href={`mailto:${ORG_SUPPORT_EMAIL}`}
+              href={`https://xym9wd0ocdt.typeform.com/to/JNI0mxjn`}
               color={linkDefault}
               fontWeight={700}
               transition="color 0.2s ease-in-out"
               _hover={{ color: highlight }}
             >
-              {ORG_SUPPORT_EMAIL}
+              here
             </Link>{" "}
             before publishing so that we can resolve this issue.
           </Text>

@@ -137,7 +137,7 @@ export const Footer = () => {
               text="Organizations"
             /> */}
             <FooterLink
-              href={`mailto:${SUPPORT_EMAIL}`}
+              href={`https://xym9wd0ocdt.typeform.com/to/JNI0mxjn`}
               text="Contact support"
             />
             <FooterLink href={`${WEBSITE_URL}/privacy-policy`} text="Privacy Policy" />
