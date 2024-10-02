@@ -1,20 +1,29 @@
 #!/bin/bash
 
-# Check if DATABASE_URL is set
-if [ -z "$DATABASE_URL" ]; then
-  echo "DATABASE_URL environment variable is not set."
-  exit 1
+# Enable debugging and log all output to a file
+exec > >(tee -i output.log)
+exec 2>&1
+set -ex
+
+# Log when the script starts
+echo "Starting import script..."
+
+# Source the .env file to load environment variables
+if [ -f .env ]; then
+  echo "Loading .env file..."
+  export $(grep -v '^#' .env | xargs)
+else
+  echo ".env file not found in the directory. Please check the file path."
+  read -p "Press any key to exit..."
+  exit
 fi
 
-# Run Prisma migration to ensure the database schema is up to date
-echo "Running Prisma migrations..."
-npx prisma migrate deploy
+# Log the DATABASE_URL for debugging
+echo "DATABASE_URL is: $DATABASE_URL"
 
-# Check if the migration was successful
-if [ $? -ne 0 ]; then
-  echo "Prisma migration failed. Please check your database connection or schema."
-  exit 1
-fi
+# Ensure we can run Node.js commands
+echo "Checking Node.js version..."
+node -v
 
 # Run the import script to insert flashcards
 echo "Starting flashcard import..."
@@ -25,5 +34,8 @@ if [ $? -eq 0 ]; then
   echo "Flashcards imported successfully!"
 else
   echo "Error importing flashcards. Please check the logs."
-  exit 1
 fi
+
+# Keep the terminal open after the script finishes
+echo "Process complete. Press any key to close..."
+read -n 1

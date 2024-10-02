@@ -59,7 +59,11 @@ yarn-error.log*
 
 .turbo
 
-./import-flashcards.sh
-./import-flashcards.js
+# Ignore shell scripts
+import-flashcards.sh
+import-flashcards.js
 
-.imported-sets
+# Ignore the imported-sets directory
+imported-sets/
+
+output.log

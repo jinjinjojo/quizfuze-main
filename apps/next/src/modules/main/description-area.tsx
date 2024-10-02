@@ -32,7 +32,7 @@ export const DescriptionArea = () => {
         gap={{ base: 8, sm: 0 }}
       >
         {/* Conditionally render HStack and its contents */}
-        {shouldRenderHStack && (
+        {shouldRenderHStack ? (
           <HStack spacing={4}>
             {/* Avatar area for flashcard sets */}
             <Avatar src={avatarUrl(user)} size="md" className="highlight-block" />
@@ -62,6 +62,8 @@ export const DescriptionArea = () => {
               )}
             </Stack>
           </HStack>
+        ) : (
+          <HStack spacing={4}></HStack>
         )}
         
         <ActionArea />
