@@ -2,7 +2,7 @@
 
 Quizfuze is powered by Quenti, an open-source project.
 
-We've added enhancements to deliver a unique and optimized learning experience, while staying true to the original vision of Quenti.
+We've added enhancements to deliver a unique and optimized learning experience, while staying true to the original vision of [Quenti](https://github.com/quenti-io/quenti).
 
 ## The Stack
 
