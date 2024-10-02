@@ -88,7 +88,7 @@ export const ClassesBeta = () => {
                           color: "gray.400",
                         }}
                       >
-                        473 flashcard sets found
+                        473 sets found
                       </Text>
                     </Stack>
                   </Box>
