@@ -143,7 +143,7 @@ export const Footer = () => {
             <FooterLink href={`${WEBSITE_URL}/terms-of-service`} text="Terms of Service" />
             <FooterLink
               href="https://github.com/jinjinjojo/quizfuze-main"
-              text="Contribute Here"
+              text="Powered by Quenti"
             />
           </HStack>
           <Flex
