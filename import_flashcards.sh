@@ -18,9 +18,6 @@ else
   exit
 fi
 
-# Log the DATABASE_URL for debugging
-echo "DATABASE_URL is: $DATABASE_URL"
-
 # Ensure we can run Node.js commands
 echo "Checking Node.js version..."
 node -v
