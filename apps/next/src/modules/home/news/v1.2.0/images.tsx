@@ -20,10 +20,10 @@ export const Images = () => {
       <NewsCard
         title={
           <HStack>
-            <Heading size="md">Images have arrived</Heading>
+            <Heading size="md">Interactive Quizzes</Heading>
           </HStack>
         }
-        description="Add images to terms from Unsplash or upload your own."
+        description="Engage with your learning through interactive quizzes designed to reinforce key concepts. Test your knowledge and track your progress easily!"
         cta={<CreateCta />}
         image={
           <Center overflow="hidden" w="full" h="full" position="relative">

@@ -18,8 +18,8 @@ export const IntroducingCortex = () => {
   return (
     <GridItem>
       <NewsCard
-        title="Introducing Cortex"
-        description="Cortex helps you learn smarter with answer grading and more."
+        title="Enjoy Learning for Free"
+        description="Access all features, including interactive quizzes, study resources, and personalized learning plans, completely free of charge."
         image={
           <Center overflow="hidden" w="full" h="full" position="relative">
             <Box

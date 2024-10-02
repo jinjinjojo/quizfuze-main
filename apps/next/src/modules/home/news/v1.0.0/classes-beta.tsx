@@ -19,13 +19,13 @@ export const ClassesBeta = () => {
       <NewsCard
         title={
           <HStack>
-            <Heading size="md">Classes</Heading>
+            <Heading size="md">Search</Heading>
             <Tag size="sm" colorScheme="red">
-              Beta
+              Coming Soon
             </Tag>
           </HStack>
         }
-        description="Teachers can create classes to manage students, study materials and sections."
+        description="Quickly find study materials, quizzes, and resources with our powerful search feature."
         image={
           <Center overflow="hidden" w="full" h="full" position="relative">
             <Box
