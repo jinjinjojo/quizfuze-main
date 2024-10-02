@@ -9,7 +9,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { IconSchool } from "@tabler/icons-react";
+import { IconSearch } from "@tabler/icons-react";
+
 
 import { NewsCard } from "../../news-card";
 
@@ -74,11 +75,11 @@ export const ClassesBeta = () => {
                       color="black"
                       shadow="md"
                     >
-                      <IconSchool size={18} />
+                      <IconSearch size={18} />
                     </Center>
                     <Stack spacing="1" position="absolute" top="40px" left="0">
                       <Heading size="sm" w="max">
-                        AP Spanish
+                        Search results
                       </Heading>
                       <Text
                         fontSize="10px"
@@ -87,7 +88,7 @@ export const ClassesBeta = () => {
                           color: "gray.400",
                         }}
                       >
-                        23 students
+                        473 flashcard sets found
                       </Text>
                     </Stack>
                   </Box>

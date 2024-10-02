@@ -9,7 +9,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 
-import { IconPhotoPlus } from "@tabler/icons-react";
+import { IconDevicesQuestion } from "@tabler/icons-react";
 
 import { NewsCard } from "../../news-card";
 import { CreateCta } from "../common/create-cta";
@@ -23,7 +23,7 @@ export const Images = () => {
             <Heading size="md">Interactive Quizzes</Heading>
           </HStack>
         }
-        description="Engage with your learning through interactive quizzes designed to reinforce key concepts. Test your knowledge and track your progress easily!"
+        description="Engage with your learning through interactive quizzes designed to reinforce key concepts."
         cta={<CreateCta />}
         image={
           <Center overflow="hidden" w="full" h="full" position="relative">
@@ -62,7 +62,7 @@ export const Images = () => {
                   position="relative"
                   zIndex={15}
                 >
-                  <IconPhotoPlus size={40} />
+                  <IconDevicesQuestion size={40} />
                 </Center>
               </GridItem>
               <DoubleWrapper opacity={0.9}>

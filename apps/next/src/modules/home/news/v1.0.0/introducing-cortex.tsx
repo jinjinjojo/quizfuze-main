@@ -44,7 +44,7 @@ export const IntroducingCortex = () => {
                     fontFamily={outfit.style.fontFamily}
                     fontSize="sm"
                   >
-                    6 / 7
+                    9 / 10
                   </Text>
                 </HStack>
                 <HStack>
@@ -56,7 +56,7 @@ export const IntroducingCortex = () => {
                     fontFamily={outfit.style.fontFamily}
                     fontSize="sm"
                   >
-                    3 / 4
+                    4 / 4
                   </Text>
                 </HStack>
               </Stack>
@@ -76,7 +76,7 @@ export const IntroducingCortex = () => {
                 >
                   <IconBrain size={36} />
                 </Box>
-                <Heading size="md">Cortex</Heading>
+                <Heading size="md">Quizfuze</Heading>
               </HStack>
             </HStack>
           </Center>
