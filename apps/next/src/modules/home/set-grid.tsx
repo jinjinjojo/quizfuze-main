@@ -7,6 +7,13 @@ import { GenericCard } from "../../components/generic-card";
 import { StudySetCard } from "../../components/study-set-card";
 import Fuse from "fuse.js";
 
+interface StudySet {
+  id: string; // or number, depending on your data
+  title: string;
+  // Add other fields as necessary
+}
+
+
 const DB_NAME = "StudySetsDB";
 const STORE_NAME = "sets";
 
@@ -36,7 +43,7 @@ const openDatabase = () => {
 
 
 
-const saveDataToIndexedDB = async (data) => {
+const saveDataToIndexedDB = async (data: StudySet[]) => {
   const db = await openDatabase();
   const transaction = db.transaction(STORE_NAME, "readwrite");
   const store = transaction.objectStore(STORE_NAME);
