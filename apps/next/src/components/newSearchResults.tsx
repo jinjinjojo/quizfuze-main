@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Input, Box, Button, Heading, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import Fuse from "fuse.js";
 import { Link } from "@quenti/components"; // Import Link from @quenti/components
+import { IconX } from '@tabler/icons-react'; // Import X icon from Tabler Icons
+
 
 interface StudySet {
   id: string;
@@ -69,18 +71,18 @@ export const NewSearchResults: React.FC = () => {
   const bgColor = useColorModeValue("white", "gray.700"); // Background color based on theme
 
   return (
-    <Box p={4}>
+    <Box>
       <Heading as="h2" size="lg" mb={4}>Search</Heading>
       <Flex mb={2}>
         <Input
-          placeholder="Search..."
+          placeholder="Search Through Quizfuze..."
           value={searchQuery}
           onChange={handleSearchInputChange}
           mr={2}
           borderColor="gray.300"
         />
         <Button onClick={clearSearch} colorScheme="red" variant="outline">
-          X
+          <IconX size={18} />
         </Button>
       </Flex>
       {searchQuery && searchResults.length > 0 && (
@@ -89,7 +91,7 @@ export const NewSearchResults: React.FC = () => {
           borderRadius="lg"
           overflow="hidden"
           mt={2}
-          zIndex={10} // Ensure the dropdown is on top
+          zIndex={21474836} // Ensure the dropdown is on top
           position="absolute" // Make it sticky
           bg={bgColor} // Background color
           boxShadow="md" // Add some shadow for better visibility
