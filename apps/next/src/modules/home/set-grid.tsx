@@ -21,21 +21,21 @@ const openDatabase = () => {
     const request = indexedDB.open(DB_NAME, 1);
 
     request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
-      const target = event.target as IDBOpenDBRequest; // Cast to IDBOpenDBRequest
-      const db = target.result; // Accessing result safely
+      const target = event.target as IDBOpenDBRequest;
+      const db = target.result;
       if (!db.objectStoreNames.contains(STORE_NAME)) {
         db.createObjectStore(STORE_NAME, { keyPath: "id" });
       }
     };
 
     request.onsuccess = (event) => {
-      const target = event.target as IDBOpenDBRequest; // Cast to IDBOpenDBRequest
-      resolve(target.result); // Now it's safe to access result
+      const target = event.target as IDBOpenDBRequest;
+      resolve(target.result);
     };
 
     request.onerror = (event) => {
-      const target = event.target as IDBOpenDBRequest; // Cast to IDBOpenDBRequest
-      reject(target.error); // Accessing error safely
+      const target = event.target as IDBOpenDBRequest;
+      reject(target.error);
     };
   });
 };
@@ -51,10 +51,10 @@ const saveDataToIndexedDB = async (data: StudySet[]): Promise<void> => {
 
   return new Promise<void>((resolve, reject) => {
     transaction.oncomplete = () => {
-      resolve(); // Now this works since resolve() is inferred as returning void
+      resolve();
     };
     transaction.onerror = (event) => {
-      reject((event.target as IDBRequest).error); // Cast for proper type
+      reject((event.target as IDBRequest).error);
     };
   });
 };
@@ -67,13 +67,13 @@ const fetchDataFromIndexedDB = async (): Promise<StudySet[]> => {
     const request = store.getAll();
 
     request.onsuccess = (event: Event) => {
-      const target = event.target as IDBRequest; // Cast to IDBRequest
-      resolve(target.result as StudySet[]); // Ensure the result is of type StudySet[]
+      const target = event.target as IDBRequest;
+      resolve(target.result as StudySet[]);
     };
 
     request.onerror = (event: Event) => {
-      const target = event.target as IDBRequest; // Cast to IDBRequest
-      reject(target.error); // Reject with the error
+      const target = event.target as IDBRequest;
+      reject(target.error);
     };
   });
 };
@@ -83,51 +83,46 @@ export const SetGrid = () => {
   const { data, isLoading: recentLoading } = api.recent.get.useQuery();
   const isLoading = status === "unauthenticated" || recentLoading;
 
-  // State for search query and results
-  const [searchQuery, setSearchQuery] = useState<string>(""); 
-  const [searchResults, setSearchResults] = useState<StudySet[]>([]); 
-  const [entities, setEntities] = useState<StudySet[]>([]); 
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchResults, setSearchResults] = useState<StudySet[]>([]);
+  const [entities, setEntities] = useState<StudySet[]>([]);
 
-  // Fetch and store the data when the component mounts
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const localData = await fetchDataFromIndexedDB();
+        const localData: StudySet[] = await fetchDataFromIndexedDB(); // Ensure it's typed
 
         if (localData.length > 0) {
-          setEntities(localData); // Load from IndexedDB if available
+          setEntities(localData);
         } else {
-          const response = await fetch("https://app.quizfuze.com/dev/10-3-24-import.json"); // Replace with your JSON file URL
-          const jsonData: StudySet[] = await response.json(); // Define the type of jsonData
-          await saveDataToIndexedDB(jsonData); // Save to IndexedDB
-          setEntities(jsonData); // Set the fetched entities
+          const response = await fetch("https://app.quizfuze.com/dev/10-3-24-import.json");
+          const jsonData: StudySet[] = await response.json();
+          await saveDataToIndexedDB(jsonData);
+          setEntities(jsonData);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchData();
-  }, []);
+    void fetchData(); // Ignore promise to avoid ESLint error
+  }, []); // Correctly call without awaiting
 
-
-  // Initialize Fuse.js options
   const fuseOptions = {
-    keys: ["title"], // Specify the fields to search
+    keys: ["title"],
     includeScore: true,
-    threshold: 0.3, // Adjust for fuzzy matching
+    threshold: 0.3,
   };
 
-  // Perform search when search query or entities change
   useEffect(() => {
     if (entities.length > 0) {
       const fuse = new Fuse(entities, fuseOptions);
       const results = searchQuery.length > 0 ? fuse.search(searchQuery) : [];
-      setSearchResults(results.map(result => result.item)); // Extract matched items
+      setSearchResults(results.map(result => result.item));
     }
   }, [searchQuery, entities]);
 
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => { // Specify the type for the event
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
@@ -135,7 +130,6 @@ export const SetGrid = () => {
 
   return (
     <Stack spacing={6}>
-      {/* Search Input Section */}
       <Box position="relative">
         <Heading size="md">Search</Heading>
         <Input
@@ -153,18 +147,16 @@ export const SetGrid = () => {
                 cursor="pointer"
                 _hover={{ bg: "gray.100" }}
                 onClick={() => {
-                  // Handle click on search result (navigate or do something)
-                  console.log(`Selected: ${result.title}`); // For now, just log the selection
+                  console.log(`Selected: ${result.title}`);
                 }}
               >
-                {result.title} {/* Display the title of the result */}
+                {result.title}
               </Box>
             ))}
           </Box>
         )}
       </Box>
 
-      {/* Recent Heading */}
       <Skeleton isLoaded={!!data} rounded="md" fitContent>
         <Heading size="lg">Recent</Heading>
       </Skeleton>
