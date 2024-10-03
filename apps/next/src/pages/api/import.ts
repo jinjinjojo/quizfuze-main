@@ -99,8 +99,6 @@ export const handleImport = async (flashcardSets: FlashcardSet[], password: stri
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
-      const { flashcardSets, password } = req.body;
-
       // Validate request body
       const bodySchema = z.object({
         flashcardSets: z.array(z.object({
@@ -113,11 +111,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         password: z.string(),
       });
 
-      // Validate request body using zod
-      const parsedBody = bodySchema.parse(req.body);
+      // Validate and parse request body using zod
+      const { flashcardSets, password } = bodySchema.parse(req.body);
 
       // Call the import function
-      const result = await handleImport(parsedBody.flashcardSets, parsedBody.password);
+      const result = await handleImport(flashcardSets, password);
       return res.status(200).json(result);
     } catch (error) {
       if (error instanceof z.ZodError) {
