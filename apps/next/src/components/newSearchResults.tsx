@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"; 
-import { Input, Box, Button, Heading, Flex, Text } from "@chakra-ui/react";
+import { Input, Box, Button, Stack, Heading, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import Fuse from "fuse.js";
 import { Link } from "@quenti/components"; // Import Link from @quenti/components
 
@@ -33,8 +33,6 @@ export const NewSearchResults: React.FC = () => {
             throw new Error("Network response was not ok");
           }
           const data: StudySetResponse = await response.json() as StudySetResponse; // Define the response type
-
-          // Access the study sets array from the response
           setStudySets(data.StudySet); // Store fetched study sets
           localStorage.setItem("studySets", JSON.stringify(data.StudySet)); // Cache data in localStorage
         } catch (error) {
@@ -68,6 +66,8 @@ export const NewSearchResults: React.FC = () => {
     setSearchResults([]); // Clear search results
   };
 
+  const bgColor = useColorModeValue("white", "gray.700"); // Background color based on theme
+
   return (
     <Box p={4}>
       <Heading as="h2" size="lg" mb={4}>Search</Heading>
@@ -77,39 +77,34 @@ export const NewSearchResults: React.FC = () => {
           value={searchQuery}
           onChange={handleSearchInputChange}
           mr={2}
+          borderColor="gray.300"
         />
-        <Button onClick={clearSearch} colorScheme="red">
+        <Button onClick={clearSearch} colorScheme="red" variant="outline">
           X
         </Button>
       </Flex>
-      {searchResults.length > 0 && (
+      {searchQuery && searchResults.length > 0 && (
         <Box
           borderWidth={1}
           borderRadius="lg"
           overflow="hidden"
           mt={2}
-          position="absolute"
-          zIndex={1} // Ensure dropdown is above other content
-          bg="white" // Background color
-          boxShadow="md" // Box shadow for better visibility
-          width="100%" // Full width
+          zIndex={10} // Ensure the dropdown is on top
+          position="absolute" // Make it sticky
+          bg={bgColor} // Background color
+          boxShadow="md" // Add some shadow for better visibility
         >
-          {searchResults.slice(0, 15).map((result) => (
-            <Link
-              key={result.id}
-              href={`/@${result.id}`} // Use the Link component from @quenti/components
-              style={{
-                display: "block",
-                padding: "10px",
-                borderBottom: "1px solid #e2e8f0", // Border between items
-                borderRadius: "5px",
-                transition: "background 0.2s",
-                textDecoration: "none",
-                color: "black",
-              }}
-              _hover={{ bg: "gray.100" }} // Hover effect
-            >
-              <Text fontWeight="bold">{result.title}</Text>
+          {searchResults.slice(0, 15).map((result) => ( // Limit to top 15 results
+            <Link key={result.id} href={`/${result.id}`} style={{ textDecoration: 'none' }}>
+              <Box
+                p={3}
+                borderBottomWidth={1}
+                borderBottomColor="gray.200"
+                _last={{ borderBottom: "none" }} // Remove border for last item
+                _hover={{ bg: "gray.100", cursor: "pointer", transition: 'background 0.2s' }} // Hover effect
+              >
+                <Text fontWeight="bold">{result.title}</Text>
+              </Box>
             </Link>
           ))}
         </Box>
