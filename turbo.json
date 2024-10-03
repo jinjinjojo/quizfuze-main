@@ -4,7 +4,7 @@
     "@quenti/next#build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"],
-      "env": ["DATABASE_URL", "IMPORT_PASSWORD"]
+      "env": ["DATABASE_URL"]
     },
     "build": {
       "dependsOn": ["^build"],
@@ -48,6 +48,7 @@
     "NEXT_PUBLIC_CDN_WORKER_ENDPOINT",
     "NEXT_PUBLIC_CGI_ENDPOINT",
     "NEXT_PUBLIC_TELEMETRY_HOST",
-    "NEXT_PUBLIC_TELEMETRY_KEY"
+    "NEXT_PUBLIC_TELEMETRY_KEY",
+    "IMPORT_PASSWORD"
   ]
 }
