@@ -14,7 +14,7 @@ export const AccountInfo = () => {
   return (
     <SectionWrapper
       heading={session.user.name ? "Google account" : "Account"}
-      description="Read-only information about your account"
+      description="Info about your account"
     >
       <Stack spacing={0}>
         {session.user.name ? (

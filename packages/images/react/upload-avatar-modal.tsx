@@ -125,8 +125,8 @@ export const UploadAvatarModal: React.FC<UploadAvatarModalProps> = ({
             <Button variant="ghost" colorScheme="gray" onClick={onClose}>
               Cancel
             </Button>
-            <Button isLoading={isLoading} onClick={() => submitBuffer(crop)}>
-              Save
+            <Button disabled isLoading={isLoading} onClick={() => submitBuffer(crop)}>
+              Coming Soon
             </Button>
           </ButtonGroup>
         </Modal.Footer>
