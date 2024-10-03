@@ -119,6 +119,10 @@
 
                 try {
                     const flashcardSets = JSON.parse(content);
+                    const totalFlashcards = flashcardSets.length;
+
+                    // Log total flashcard sets found
+                    logMessage(`Total flashcard sets found: ${totalFlashcards}`);
 
                     // Split flashcard sets into batches of 50
                     const batches = splitIntoBatches(flashcardSets, 50);
@@ -126,6 +130,11 @@
                     // Process each batch sequentially with a 1-second delay
                     for (let i = 0; i < batches.length; i++) {
                         const batch = batches[i];
+
+                        // Log current batch range
+                        const startBatch = (i * 50) + 1;
+                        const endBatch = Math.min(startBatch + batch.length - 1, totalFlashcards);
+                        logMessage(`Current batch: ${startBatch}-${endBatch} / ${totalFlashcards}`);
 
                         try {
                             const response = await fetch('/api/import', {
