@@ -137,7 +137,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({
             maxW="xl"
             textAlign="center"
           >
-            Looks like you&apos;ve been ghosted.
+            Oops! This page has detonated. 
           </Heading>
           <HStack
             spacing="3"
