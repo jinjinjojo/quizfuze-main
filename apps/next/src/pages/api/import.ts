@@ -60,7 +60,7 @@ async function importFlashcards(flashcardSets: FlashcardSet[], password: string)
             create: set.cards.map((card: Flashcard) => ({
                 word: card.term,
                 definition: card.definition,
-            })) as prisma.TermCreateWithoutStudySetInput[], // Explicitly type this array
+            })) as Prisma.TermCreateWithoutStudySetInput[], // Explicitly type this array
             },
         },
       });
