@@ -131,19 +131,32 @@
 
                 try {
                     const flashcardSets = JSON.parse(content);
-                    validateFlashcardSets(flashcardSets); // Validate before proceeding
-                    
-                    const totalFlashcardSets = flashcardSets.length;
+
+                    // Filter out flashcard sets without a term or definition
+                    const validFlashcardSets = flashcardSets.filter(flashcardSet => {
+                        return flashcardSet.cards.every(card => {
+                            const hasTerm = card.term && typeof card.term === 'string';
+                            const hasDefinition = card.definition && typeof card.definition === 'string';
+
+                            // Set definition to an empty string if missing
+                            if (!hasDefinition) {
+                                card.definition = "";
+                            }
+
+                            return hasTerm || hasDefinition; // Only keep if at least one is valid
+                        });
+                    });
+
+                    const totalFlashcardSets = validFlashcardSets.length;
                     logMessage(`Total flashcard sets found: ${totalFlashcardSets}`);
 
-                    // Split flashcard sets into batches of 50
-                    const batches = splitIntoBatches(flashcardSets, 50);
+                    // Split valid flashcard sets into batches of 50
+                    const batches = splitIntoBatches(validFlashcardSets, 50);
 
                     // Process each batch sequentially with a 1-second delay
                     for (let i = 0; i < batches.length; i++) {
                         const batch = batches[i];
-                        const currentBatchRange = `${i * 50 + 1}-${Math.min((i + 1) * 50, totalFlashcardSets)}`;
-                        logMessage(`Current batch: ${currentBatchRange} / ${totalFlashcardSets}`);
+                        logMessage(`Current batch: ${(i * 50) + 1}-${Math.min((i + 1) * 50, totalFlashcardSets)} / ${totalFlashcardSets}`);
 
                         try {
                             const response = await fetch('/api/import', {
@@ -163,7 +176,7 @@
                                 const firstTitle = batch[0].title;
                                 logMessage(`${firstTitle} + ${batch.length - 1} more successfully imported.`);
                             } else {
-                                logMessage(`Failed to import batch ${i + 1}: ${result.message || 'Unknown error'}`);
+                                logMessage(`Failed to import batch ${i + 1}: ${result.message}`);
                             }
                         } catch (error) {
                             logMessage(`Error importing batch ${i + 1}: ${error.message}`);
@@ -173,12 +186,13 @@
                         await delay(1000);
                     }
                 } catch (error) {
-                    logMessage(`Error parsing JSON: ${error.message}`);
+                    logMessage(`Error: ${error.message}`);
                 } finally {
                     loadingDiv.classList.add('hidden');
                     importButton.disabled = false;
                 }
             };
+
 
             reader.readAsText(file);
         });
