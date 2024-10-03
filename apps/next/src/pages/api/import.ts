@@ -88,7 +88,7 @@ async function importFlashcards(flashcardSets: FlashcardSet[], password: string)
             console.log(`Successfully imported study set: ${set.title} with ID: ${setId}`);
         } catch (error) {
             console.error(`Error importing study set "${set.title}":`, error);
-            throw new Error(`Failed to import study set "${set.title}": ${error.message}`);
+            throw new Error(`Failed to import study set "${set.title}": ${error instanceof Error}`);
         }
     }
 
