@@ -30,6 +30,8 @@ async function generateSetId() {
 interface Flashcard {
   term: string;
   definition: string;
+  image?: string; // Optional image field
+  sourceImage?: string; // Optional source image field
 }
 
 interface FlashcardSet {
@@ -40,7 +42,7 @@ interface FlashcardSet {
 // Function to import flashcards from a given JSON object
 async function importFlashcards(flashcardSets: FlashcardSet[], password: string) {
   if (password !== process.env.IMPORT_PASSWORD) {
-    throw new Error("Invalid import password: "+password);
+    throw new Error("Invalid import password: " + password);
   }
 
   await prisma.$connect();
@@ -51,6 +53,14 @@ async function importFlashcards(flashcardSets: FlashcardSet[], password: string)
 
       const setId = await generateSetId(); // Ensure the generated ID is unique
 
+      const termsToCreate = set.cards.map((card: Flashcard, index: number) => ({
+        word: card.term,
+        definition: card.definition,
+        assetUrl: card.sourceImage || null, // Use sourceImage if available
+        rank: index, // Set rank based on the index
+        studySetId: setId, // Associate with the study set
+      })) as Prisma.TermCreateWithoutStudySetInput[];
+
       await prisma.studySet.create({
         data: {
           id: setId,
@@ -59,10 +69,7 @@ async function importFlashcards(flashcardSets: FlashcardSet[], password: string)
           userId: 'cm1qwea6u0001ib036o1hvp8y', // Official Quizfuze Account User ID
           visibility: 'Public', // Set visibility as per your preference
           terms: {
-            create: set.cards.map((card: Flashcard) => ({
-              word: card.term,
-              definition: card.definition,
-            })) as Prisma.TermCreateWithoutStudySetInput[], // Explicitly type this array
+            create: termsToCreate,
           },
         },
       });
@@ -106,6 +113,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           cards: z.array(z.object({
             term: z.string(),
             definition: z.string(),
+            image: z.string().optional(), // Optional field for the image
+            sourceImage: z.string().optional(), // Optional field for the source image
           })),
         })),
         password: z.string(),
