@@ -144,7 +144,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return res.status(200).json({ success: true, message: 'All imports successful.' });
         } catch (error: unknown) {
             if (error instanceof z.ZodError) {
-                return res.status(400).json({ success: false, message: error.errors });
+                return res.status(400).json({ success: false, message: error instanceof Error });
             } else if (error instanceof Error) {
                 return res.status(500).json({ success: false, message: error.message });
             } else {
