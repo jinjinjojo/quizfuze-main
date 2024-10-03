@@ -23,48 +23,85 @@ export const StudySetsList = () => {
     ? "This user doesn't have any public study sets."
     : "You haven't created any study sets yet.";
 
-  // Custom message when the profile ID matches
-  if (profile.id === "cm1qwea6u0001ib036o1hvp8y") { //! OFFICIAL QUIZFUZE USER ID
+  // If the logged-in user is the official account, show their flashcards
+  if (profile.isMe && profile.id === "cm1qwea6u0001ib036o1hvp8y") {
     return (
       <Stack spacing={8}>
-        <Heading size="lg">Quizfuze Official Account</Heading>
-        <Text color={grayText}>
-          Thank you for using our platform! We&apos;re excited to have you here.
-        </Text>
+        <Heading size="lg">Quizfuze Admin: Your Flashcards</Heading>
+        {grouped.length > 0 ? (
+          grouped.map((x, i) => (
+            <Stack spacing={6} key={i}>
+              <Flex gap={4} alignItems="center">
+                <Heading fontSize="2xl" whiteSpace="nowrap">
+                  {x.label}
+                </Heading>
+                <Divider borderColor={dividerColor} />
+              </Flex>
+              <Stack spacing={4}>
+                {x.items.map((item) => (
+                  <ProfileLinkable
+                    key={item.id}
+                    title={item.title}
+                    url={`/${item.id}`}
+                    visibility={item.visibility}
+                    numValues={item._count.terms}
+                    label="term"
+                  />
+                ))}
+              </Stack>
+            </Stack>
+          ))
+        ) : (
+          <Stack>
+            <Heading size="lg">Nothing yet</Heading>
+            <Text color={grayText}>{placeholder}</Text>
+          </Stack>
+        )}
       </Stack>
     );
   }
 
+  // For normal users, show their own flashcards
+  if (profile.studySets.length > 0) {
+    return (
+      <Stack spacing={8}>
+        {grouped.map((x, i) => (
+          <Stack spacing={6} key={i}>
+            <Flex gap={4} alignItems="center">
+              <Heading fontSize="2xl" whiteSpace="nowrap">
+                {x.label}
+              </Heading>
+              <Divider borderColor={dividerColor} />
+            </Flex>
+            <Stack spacing={4}>
+              {x.items.map((item) => (
+                <ProfileLinkable
+                  key={item.id}
+                  title={item.title}
+                  url={`/${item.id}`}
+                  visibility={item.visibility}
+                  numValues={item._count.terms}
+                  label="term"
+                />
+              ))}
+            </Stack>
+          </Stack>
+        ))}
+        {!grouped.length && (
+          <Stack>
+            <Heading size="lg">Nothing yet</Heading>
+            <Text color={grayText}>{placeholder}</Text>
+          </Stack>
+        )}
+      </Stack>
+    );
+  }
+
+  // Default message for users without study sets
   return (
     <Stack spacing={8}>
-      {grouped.map((x, i) => (
-        <Stack spacing={6} key={i}>
-          <Flex gap={4} alignItems="center">
-            <Heading fontSize="2xl" whiteSpace="nowrap">
-              {x.label}
-            </Heading>
-            <Divider borderColor={dividerColor} />
-          </Flex>
-          <Stack spacing={4}>
-            {x.items.map((x) => (
-              <ProfileLinkable
-                key={x.id}
-                title={x.title}
-                url={`/${x.id}`}
-                visibility={x.visibility}
-                numValues={x._count.terms}
-                label="term"
-              />
-            ))}
-          </Stack>
-        </Stack>
-      ))}
-      {!grouped.length && (
-        <Stack>
-          <Heading size="lg">Nothing yet</Heading>
-          <Text color={grayText}>{placeholder}</Text>
-        </Stack>
-      )}
+      <Heading size="lg">Nothing to show</Heading>
+      <Text color={grayText}>{placeholder}</Text>
     </Stack>
   );
 };
