@@ -46,7 +46,7 @@ async function importFlashcards(flashcardSets: FlashcardSet[], password: string)
   }
 
   // Check if the number of flashcard sets exceeds 50
-  if (flashcardSets.length > 50) {
+  if (flashcardSets.length > 55) {
     throw new Error("Cannot import more than 50 flashcard sets at a time.");
   }
 
