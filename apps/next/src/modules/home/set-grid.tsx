@@ -79,7 +79,7 @@ const fetchDataFromIndexedDB = async (): Promise<StudySet[]> => {
 };
 
 // Validation function to check if the data matches the StudySet type
-const validateStudySetData = (data: any): data is StudySet[] => {
+const validateStudySetData = (data: unknown): data is StudySet[] => {
   return Array.isArray(data) && data.every(item => typeof item.id === 'string' && typeof item.title === 'string');
 };
 
@@ -118,7 +118,7 @@ export const SetGrid = () => {
       }
     };
 
-    fetchData();
+    fetchData().catch(error => console.error("Unhandled promise:", error)); // Fix no-floating-promise issue
   }, []);
 
   // Initialize Fuse.js options
