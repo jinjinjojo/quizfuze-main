@@ -10,7 +10,7 @@ const prisma = new PrismaClient();
 // Generates a unique set ID in the format: cm1duf87z0001l503fsejo9tp
 async function generateSetId() {
   const prefix = "cm1";
-  const randomPart = Math.random().toString(36).substr(2, 20); // Generate a 20-character string
+  const randomPart = Math.random().toString(36).substr(2, 24); // Generate a 24-character string
   const setId = prefix + randomPart;
 
   // Check if the generated ID already exists
