@@ -88,9 +88,9 @@ export const SetGrid = () => {
   const isLoading = status === "unauthenticated" || recentLoading;
 
   // State for search query and results
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [entities, setEntities] = useState([]);
+  const [searchQuery, setSearchQuery] = useState<string>(""); // Specify type for searchQuery
+  const [searchResults, setSearchResults] = useState<StudySet[]>([]); // Specify type for searchResults
+  const [entities, setEntities] = useState<StudySet[]>([]); // Specify type for entities
 
   // Fetch and store the data when the component mounts
   useEffect(() => {
@@ -113,6 +113,7 @@ export const SetGrid = () => {
 
     fetchData();
   }, []);
+
 
   // Initialize Fuse.js options
   const fuseOptions = {
