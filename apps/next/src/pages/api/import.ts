@@ -106,6 +106,7 @@ export const handleImport = async (flashcardSets: FlashcardSet[], password: stri
 };
 
 // API handler
+// API handler
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
         try {
@@ -141,11 +142,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
 
             return res.status(200).json({ success: true, message: 'All imports successful.' });
-        } catch (error) {
+        } catch (error: unknown) {
             if (error instanceof z.ZodError) {
                 return res.status(400).json({ success: false, message: error.errors });
+            } else if (error instanceof Error) {
+                return res.status(500).json({ success: false, message: error.message });
+            } else {
+                return res.status(500).json({ success: false, message: 'An unknown error occurred.' });
             }
-            return res.status(500).json({ success: false, message: error instanceof Error ? error.message : 'An unknown error occurred.' });
         }
     } else {
         res.setHeader('Allow', ['POST']);
