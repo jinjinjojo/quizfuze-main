@@ -88,9 +88,9 @@ export const SetGrid = () => {
   const isLoading = status === "unauthenticated" || recentLoading;
 
   // State for search query and results
-  const [searchQuery, setSearchQuery] = useState<string>(""); // Specify type for searchQuery
-  const [searchResults, setSearchResults] = useState<StudySet[]>([]); // Specify type for searchResults
-  const [entities, setEntities] = useState<StudySet[]>([]); // Specify type for entities
+  const [searchQuery, setSearchQuery] = useState<string>(""); 
+  const [searchResults, setSearchResults] = useState<StudySet[]>([]); 
+  const [entities, setEntities] = useState<StudySet[]>([]); 
 
   // Fetch and store the data when the component mounts
   useEffect(() => {
@@ -131,7 +131,7 @@ export const SetGrid = () => {
     }
   }, [searchQuery, entities]);
 
-  const handleSearchInputChange = (e) => {
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => { // Specify the type for the event
     setSearchQuery(e.target.value);
   };
 
