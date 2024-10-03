@@ -40,7 +40,7 @@ interface FlashcardSet {
 // Function to import flashcards from a given JSON object
 async function importFlashcards(flashcardSets: FlashcardSet[], password: string) {
   if (password !== process.env.IMPORT_PASSWORD) {
-    throw new Error("Invalid import password: "+password);
+    throw new Error("Invalid import password: "+process.env.IMPORT_PASSWORD);
   }
 
   await prisma.$connect();
