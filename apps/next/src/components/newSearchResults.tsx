@@ -27,9 +27,12 @@ export const NewSearchResults: React.FC = () => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
-          const data: StudySet[] = await response.json();
-          setStudySets(data); // Store fetched study sets
-          localStorage.setItem("studySets", JSON.stringify(data)); // Cache data in localStorage
+          const data = await response.json();
+
+          // Access the study sets array from the response
+          const fetchedStudySets: StudySet[] = data.StudySet;
+          setStudySets(fetchedStudySets); // Store fetched study sets
+          localStorage.setItem("studySets", JSON.stringify(fetchedStudySets)); // Cache data in localStorage
         } catch (error) {
           console.error("Failed to fetch study sets:", error);
         }
