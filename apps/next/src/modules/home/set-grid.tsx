@@ -24,17 +24,7 @@ interface Entity {
   user?: any;
 }
 
-interface SetFolderEntity {
-  id: string;
-  title: string;
-  entityType: 'set' | 'folder';
-  visibility?: string;
-  type?: string;
-  collaborators?: any[];
-  draft?: boolean;
-  numItems: number;
-  user?: any;
-}
+interface SetFolderEntity extends Entity {}
 
 const DB_NAME = "StudySetsDB";
 const STORE_NAME = "sets";
@@ -206,10 +196,11 @@ export const SetGrid = () => {
               <GenericCard.Skeleton />
             </GridItem>
           ))}
-        {(data?.entities || []).map((item: SetFolderEntity) => (
+        {(data?.entities || []).map((item: SetFolderEntity, index: number) => (
           <GridItem key={item.id} h="156px">
             {item.entityType === "set" ? (
               <StudySetCard
+                key={item.id}
                 studySet={{
                   ...item,
                   visibility: item.visibility!,
@@ -222,6 +213,7 @@ export const SetGrid = () => {
               />
             ) : (
               <FolderCard
+                key={item.id}
                 folder={{ ...item }}
                 numSets={item.numItems}
                 user={item.user}
