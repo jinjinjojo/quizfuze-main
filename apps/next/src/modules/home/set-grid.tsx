@@ -62,23 +62,25 @@ const saveDataToIndexedDB = async (data: StudySet[]): Promise<void> => {
   });
 };
 
-
-const fetchDataFromIndexedDB = async () => {
+const fetchDataFromIndexedDB = async (): Promise<StudySet[]> => {
   const db = await openDatabase();
-  return new Promise((resolve, reject) => {
+  return new Promise<StudySet[]>((resolve, reject) => {
     const transaction = db.transaction(STORE_NAME, "readonly");
     const store = transaction.objectStore(STORE_NAME);
     const request = store.getAll();
 
-    request.onsuccess = (event) => {
-      resolve(event.target.result);
+    request.onsuccess = (event: Event) => {
+      const target = event.target as IDBRequest; // Cast to IDBRequest
+      resolve(target.result as StudySet[]); // Ensure the result is of type StudySet[]
     };
 
-    request.onerror = (event) => {
-      reject(event.target.error);
+    request.onerror = (event: Event) => {
+      const target = event.target as IDBRequest; // Cast to IDBRequest
+      reject(target.error); // Reject with the error
     };
   });
 };
+
 
 export const SetGrid = () => {
   const { status } = useSession();
@@ -99,7 +101,7 @@ export const SetGrid = () => {
         setEntities(localData); // Load from IndexedDB if available
       } else {
         try {
-          const response = await fetch("YOUR_JSON_DATA_URL"); // Replace with your JSON file URL
+          const response = await fetch("https://app.quizfuze.com/dev/10-3-24-import.json"); // Replace with your JSON file URL
           const jsonData = await response.json();
           await saveDataToIndexedDB(jsonData); // Save to IndexedDB
           setEntities(jsonData); // Set the fetched entities
