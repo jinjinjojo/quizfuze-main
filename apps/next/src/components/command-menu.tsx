@@ -96,11 +96,15 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
   const dismiss = router.pathname == "/onboarding/command-menu";
   const onSet = router.pathname == "/sets/[id]";
   const onFolder = router.pathname == "/profile/[username]/folders/[slug]";
+  
+  const url = () => {
+    const id = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id; // Handle string[] case
+    return `${APP_URL}/${id}`;
+  };
 
-  const url = (id: string) => `${APP_URL}/${router.query.id}`;
-  const onSuccess = (id: string) => {
+  const onSuccess = () => {
     void (async () => {
-      await navigator.clipboard.writeText(url(id));
+      await navigator.clipboard.writeText(url());
     })();
     onClose();
   };
