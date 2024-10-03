@@ -116,7 +116,7 @@
 
                     const result = await response.json(); // Parse the JSON response
 
-                    if (response.success) {
+                    if (response.success == "true") {
                         logMessage(`Successfully imported: ${result.message || 'Flashcards imported successfully.'}`);
                     } else {
                         logMessage(`Failed to import: ${result.message || response.statusText}`);
