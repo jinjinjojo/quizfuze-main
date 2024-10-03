@@ -8,12 +8,23 @@ import { StudySetCard } from "../../components/study-set-card";
 import Fuse from "fuse.js";
 
 interface StudySet {
-  id: string; // Assuming the id is a string, change to number if necessary
+  id: string;
   title: string;
-  // Add other necessary fields
 }
 
 interface Entity {
+  id: string;
+  title: string;
+  entityType: 'set' | 'folder';
+  visibility?: string;
+  type?: string;
+  collaborators?: any[];
+  draft?: boolean;
+  numItems: number;
+  user?: any;
+}
+
+interface SetFolderEntity {
   id: string;
   title: string;
   entityType: 'set' | 'folder';
@@ -85,7 +96,6 @@ const fetchDataFromIndexedDB = async (): Promise<StudySet[]> => {
   });
 };
 
-// Validation function to check if the data matches the StudySet type
 const validateStudySetData = (data: any): data is StudySet[] => {
   return Array.isArray(data) && data.every(item => typeof item.id === 'string' && typeof item.title === 'string');
 };
@@ -105,15 +115,14 @@ export const SetGrid = () => {
         const localData: StudySet[] = await fetchDataFromIndexedDB();
 
         if (localData.length > 0) {
-          // Map StudySet[] to Entity[]
           const entities: Entity[] = localData.map((studySet) => ({
             id: studySet.id,
             title: studySet.title,
-            entityType: 'set', // Add missing entityType to make it an Entity
-            numItems: 0 // Assign a default value if you need it
+            entityType: 'set',
+            numItems: 0
           }));
 
-          setEntities(entities);  // Now entities is correctly typed as Entity[]
+          setEntities(entities);
         } else {
           const response = await fetch("https://app.quizfuze.com/dev/10-3-24-import.json");
           const jsonData = await response.json();
@@ -122,12 +131,12 @@ export const SetGrid = () => {
             const entities: Entity[] = jsonData.map((studySet: StudySet) => ({
               id: studySet.id,
               title: studySet.title,
-              entityType: 'set', // Add entityType for Entity[]
-              numItems: 0 // Again, assign a default or derived value
+              entityType: 'set',
+              numItems: 0
             }));
 
             await saveDataToIndexedDB(jsonData);
-            setEntities(entities);  // Safe to assign Entity[]
+            setEntities(entities);
           } else {
             console.error("Invalid data format:", jsonData);
           }
@@ -197,7 +206,7 @@ export const SetGrid = () => {
               <GenericCard.Skeleton />
             </GridItem>
           ))}
-        {(data?.entities || []).map((item: Entity) => (
+        {(data?.entities || []).map((item: SetFolderEntity) => (
           <GridItem key={item.id} h="156px">
             {item.entityType === "set" ? (
               <StudySetCard
