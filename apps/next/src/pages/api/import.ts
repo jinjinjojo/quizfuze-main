@@ -1,5 +1,7 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient, Prisma } from '@prisma/client';
 import dotenv from 'dotenv';
+import { z } from 'zod';
 
 dotenv.config();
 
@@ -92,3 +94,39 @@ export const handleImport = async (flashcardSets: FlashcardSet[], password: stri
     }
   }
 };
+
+// API handler
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method === 'POST') {
+    try {
+      const { flashcardSets, password } = req.body;
+
+      // Validate request body
+      const bodySchema = z.object({
+        flashcardSets: z.array(z.object({
+          title: z.string(),
+          cards: z.array(z.object({
+            term: z.string(),
+            definition: z.string(),
+          })),
+        })),
+        password: z.string(),
+      });
+
+      // Validate request body using zod
+      const parsedBody = bodySchema.parse(req.body);
+
+      // Call the import function
+      const result = await handleImport(parsedBody.flashcardSets, parsedBody.password);
+      return res.status(200).json(result);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ success: false, message: error.errors });
+      }
+      return res.status(500).json({ success: false, message: error instanceof Error ? error.message : 'An unknown error occurred.' });
+    }
+  } else {
+    res.setHeader('Allow', ['POST']);
+    return res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
+}
