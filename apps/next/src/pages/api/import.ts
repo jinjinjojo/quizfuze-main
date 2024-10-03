@@ -6,14 +6,37 @@ dotenv.config();
 const prisma = new PrismaClient();
 
 // Generates a unique set ID in the format: cm1duf87z0001l503fsejo9tp
-function generateSetId() {
+async function generateSetId() {
   const prefix = "cm1";
   const randomPart = Math.random().toString(36).substr(2, 20); // Generate a 20-character string
-  return prefix + randomPart;
+  const setId = prefix + randomPart;
+
+  // Check if the generated ID already exists
+  const existingSet = await prisma.studySet.findUnique({
+    where: { id: setId },
+  });
+
+  // If it exists, generate a new ID
+  if (existingSet) {
+    return generateSetId(); // Recursively call until a unique ID is found
+  }
+
+  return setId;
+}
+
+// Define interfaces for flashcards and flashcard sets
+interface Flashcard {
+  term: string;
+  definition: string;
+}
+
+interface FlashcardSet {
+  title: string;
+  cards: Flashcard[];
 }
 
 // Function to import flashcards from a given JSON object
-async function importFlashcards(flashcardSets: any[], password: string) {
+async function importFlashcards(flashcardSets: FlashcardSet[], password: string) {
   if (password !== process.env.IMPORT_PASSWORD) {
     throw new Error("Invalid import password.");
   }
@@ -24,7 +47,7 @@ async function importFlashcards(flashcardSets: any[], password: string) {
     try {
       console.log(`Importing study set: ${set.title}`);
 
-      const setId = generateSetId();
+      const setId = await generateSetId(); // Ensure the generated ID is unique
 
       await prisma.studySet.create({
         data: {
@@ -34,7 +57,7 @@ async function importFlashcards(flashcardSets: any[], password: string) {
           userId: 'cm1qwea6u0001ib036o1hvp8y', // Official Quizfuze Account User ID
           visibility: 'Public', // Set visibility as per your preference
           terms: {
-            create: set.cards.map(card => ({
+            create: set.cards.map((card: Flashcard) => ({
               word: card.term,
               definition: card.definition,
             })),
@@ -53,7 +76,7 @@ async function importFlashcards(flashcardSets: any[], password: string) {
 }
 
 // Export the import function to be used elsewhere
-export const handleImport = async (flashcardSets: any[], password: string) => {
+export const handleImport = async (flashcardSets: FlashcardSet[], password: string) => {
   try {
     await importFlashcards(flashcardSets, password);
     return { success: true, message: 'Import successful.' };
