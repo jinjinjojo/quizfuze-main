@@ -14,13 +14,12 @@ const openDatabase = () => {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, 1);
 
-    request.onupgradeneeded = (event) => {
-      const target = event.target; // Extract the target from the event
-      if (target) { // Check if target is not null
-        const db = target.result;
-        if (!db.objectStoreNames.contains(STORE_NAME)) {
-          db.createObjectStore(STORE_NAME, { keyPath: "id" });
-        }
+    request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
+      const target = event.target as IDBOpenDBRequest; // Cast to IDBOpenDBRequest
+      const db = target.result; // Now TypeScript recognizes `result` exists
+
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        db.createObjectStore(STORE_NAME, { keyPath: "id" });
       }
     };
 
@@ -33,6 +32,7 @@ const openDatabase = () => {
     };
   });
 };
+
 
 const saveDataToIndexedDB = async (data) => {
   const db = await openDatabase();
