@@ -7,6 +7,10 @@ interface StudySet {
   title: string;
 }
 
+interface StudySetResponse {
+  StudySet: StudySet[]; // Define the expected response structure
+}
+
 export const NewSearchResults: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchResults, setSearchResults] = useState<StudySet[]>([]);
@@ -27,12 +31,11 @@ export const NewSearchResults: React.FC = () => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
-          const data = await response.json();
+          const data: StudySetResponse = await response.json(); // Define the response type
 
           // Access the study sets array from the response
-          const fetchedStudySets: StudySet[] = data.StudySet;
-          setStudySets(fetchedStudySets); // Store fetched study sets
-          localStorage.setItem("studySets", JSON.stringify(fetchedStudySets)); // Cache data in localStorage
+          setStudySets(data.StudySet); // Store fetched study sets
+          localStorage.setItem("studySets", JSON.stringify(data.StudySet)); // Cache data in localStorage
         } catch (error) {
           console.error("Failed to fetch study sets:", error);
         }
@@ -50,7 +53,7 @@ export const NewSearchResults: React.FC = () => {
       threshold: 0.3,
     });
     const results = searchQuery.length > 0 ? fuse.search(searchQuery) : [];
-    setSearchResults(results.map((result) => result.item as StudySet)); // Update search results
+    setSearchResults(results.map((result) => result.item)); // Update search results
   }, [searchQuery, studySets]);
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
