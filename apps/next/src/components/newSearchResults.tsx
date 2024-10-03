@@ -23,7 +23,7 @@ export const NewSearchResults: React.FC = () => {
       
       if (cachedStudySets) {
         // Load from localStorage if data exists
-        setStudySets(JSON.parse(cachedStudySets));
+        setStudySets(JSON.parse(cachedStudySets) as StudySet[]);
       } else {
         // Fetch from API if no cached data
         try {
@@ -42,7 +42,9 @@ export const NewSearchResults: React.FC = () => {
       }
     };
 
-    fetchStudySets();
+    fetchStudySets().catch((error) => {
+      console.error("Failed to fetch study sets:", error); // Handle promise rejection
+    });
   }, []); // Run once on mount
 
   useEffect(() => {
