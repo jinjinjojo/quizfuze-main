@@ -58,7 +58,6 @@ async function importFlashcards(flashcardSets: FlashcardSet[], password: string)
         definition: card.definition,
         assetUrl: card.sourceImage || null, // Use sourceImage if available
         rank: index, // Set rank based on the index
-        studySetId: setId, // Associate with the study set
       })) as Prisma.TermCreateWithoutStudySetInput[];
 
       await prisma.studySet.create({
