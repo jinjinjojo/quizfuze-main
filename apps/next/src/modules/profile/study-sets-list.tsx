@@ -23,6 +23,18 @@ export const StudySetsList = () => {
     ? "This user doesn't have any public study sets."
     : "You haven't created any study sets yet.";
 
+  // Custom message when the profile ID matches
+  if (profile.id === "cm1qwea6u0001ib036o1hvp8y") {
+    return (
+      <Stack spacing={8}>
+        <Heading size="lg">Custom Message</Heading>
+        <Text color={grayText}>
+          Thank you for using our platform! We're excited to have you here.
+        </Text>
+      </Stack>
+    );
+  }
+
   return (
     <Stack spacing={8}>
       {grouped.map((x, i) => (
