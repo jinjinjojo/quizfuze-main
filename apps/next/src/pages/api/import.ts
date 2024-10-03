@@ -30,6 +30,7 @@ async function importFlashcards(flashcardSets: any[], password: string) {
         data: {
           id: setId,
           title: set.title,
+          description: '',
           userId: 'cm1qwea6u0001ib036o1hvp8y', // Official Quizfuze Account User ID
           visibility: 'Public', // Set visibility as per your preference
           terms: {
