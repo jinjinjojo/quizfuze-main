@@ -45,6 +45,11 @@ async function importFlashcards(flashcardSets: FlashcardSet[], password: string)
     throw new Error("Invalid import password: " + password);
   }
 
+  // Check if the number of flashcard sets exceeds 50
+  if (flashcardSets.length > 50) {
+    throw new Error("Cannot import more than 50 flashcard sets at a time.");
+  }
+
   await prisma.$connect();
 
   for (const set of flashcardSets) {

@@ -83,7 +83,20 @@
             logDiv.appendChild(logEntry);
         }
 
-        // Import button click event
+        // Function to delay by a specified number of milliseconds
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Split the flashcards into batches of 50
+        function splitIntoBatches(flashcardSets, batchSize = 50) {
+            const batches = [];
+            for (let i = 0; i < flashcardSets.length; i += batchSize) {
+                batches.push(flashcardSets.slice(i, i + batchSize));
+            }
+            return batches;
+        }
+
         // Import button click event
         importButton.addEventListener('click', async () => {
             const file = fileInput.files[0];
@@ -100,40 +113,59 @@
             // Show loading spinner and disable the import button
             loadingDiv.classList.remove('hidden');
             importButton.disabled = true;
-            importButton.classList.add('disabled'); // Add extra disabled style if needed
 
             reader.onload = async function (event) {
                 const content = event.target.result;
 
                 try {
-                    const response = await fetch('https://app.quizfuze.com/api/import', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ flashcardSets: JSON.parse(content), password: importPassword }),
-                    });
+                    const flashcardSets = JSON.parse(content);
 
-                    const result = await response.json(); // Parse the JSON response
+                    // Split flashcard sets into batches of 50
+                    const batches = splitIntoBatches(flashcardSets, 50);
 
-                    if (response.success == "true") {
-                        logMessage(`Successfully imported: ${result.message || 'Flashcards imported successfully.'}`);
-                    } else {
-                        logMessage(`Failed to import: ${result.message || response.statusText}`);
+                    // Process each batch sequentially with a 1-second delay
+                    for (let i = 0; i < batches.length; i++) {
+                        const batch = batches[i];
+
+                        try {
+                            const response = await fetch('/api/import', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    flashcardSets: batch,
+                                    password: importPassword
+                                }),
+                            });
+
+                            const result = await response.json();
+
+                            if (result.success) {
+                                const firstTitle = batch[0].title;
+                                logMessage(`${firstTitle} + ${batch.length - 1} more successfully imported.`);
+                            } else {
+                                logMessage(`Failed to import batch ${i + 1}: ${result.message}`);
+                            }
+                        } catch (error) {
+                            logMessage(`Error importing batch ${i + 1}: ${error.message}`);
+                        }
+
+                        // Wait for 1 second before the next batch
+                        await delay(1000);
                     }
                 } catch (error) {
                     logMessage(`Error: ${error.message}`);
                 } finally {
                     loadingDiv.classList.add('hidden');
                     importButton.disabled = false;
-                    importButton.classList.remove('disabled'); // Re-enable button
                 }
             };
 
             reader.readAsText(file);
         });
-
     </script>
+
 </body>
 
 </html>
