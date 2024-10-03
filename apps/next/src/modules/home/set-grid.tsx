@@ -13,15 +13,10 @@ interface StudySet {
   // Add other necessary fields
 }
 
-interface Folder {
-  id: string;
-  // Add fields for Folder entity
-}
-
 interface Entity {
   id: string;
   title: string;
-  entityType: 'set' | 'folder'; // Define entity types
+  entityType: 'set' | 'folder';
   visibility?: string;
   type?: string;
   collaborators?: any[];
@@ -110,14 +105,29 @@ export const SetGrid = () => {
         const localData: StudySet[] = await fetchDataFromIndexedDB();
 
         if (localData.length > 0) {
-          setEntities(localData); 
+          // Map StudySet[] to Entity[]
+          const entities: Entity[] = localData.map((studySet) => ({
+            id: studySet.id,
+            title: studySet.title,
+            entityType: 'set', // Add missing entityType to make it an Entity
+            numItems: 0 // Assign a default value if you need it
+          }));
+
+          setEntities(entities);  // Now entities is correctly typed as Entity[]
         } else {
           const response = await fetch("https://app.quizfuze.com/dev/10-3-24-import.json");
           const jsonData = await response.json();
 
           if (validateStudySetData(jsonData)) {
-            await saveDataToIndexedDB(jsonData); 
-            setEntities(jsonData); 
+            const entities: Entity[] = jsonData.map((studySet: StudySet) => ({
+              id: studySet.id,
+              title: studySet.title,
+              entityType: 'set', // Add entityType for Entity[]
+              numItems: 0 // Again, assign a default or derived value
+            }));
+
+            await saveDataToIndexedDB(jsonData);
+            setEntities(entities);  // Safe to assign Entity[]
           } else {
             console.error("Invalid data format:", jsonData);
           }
