@@ -97,6 +97,18 @@
             return batches;
         }
 
+        function validateFlashcardSets(flashcardSets) {
+            for (let i = 0; i < flashcardSets.length; i++) {
+                const flashcardSet = flashcardSets[i];
+                for (let j = 0; j < flashcardSet.cards.length; j++) {
+                    const card = flashcardSet.cards[j];
+                    if (!card.definition || typeof card.definition !== 'string') {
+                        throw new Error(`Flashcard set ${i + 1}, card ${j + 1} is missing a valid definition.`);
+                    }
+                }
+            }
+        }
+
         // Import button click event
         importButton.addEventListener('click', async () => {
             const file = fileInput.files[0];
@@ -119,6 +131,8 @@
 
                 try {
                     const flashcardSets = JSON.parse(content);
+                    validateFlashcardSets(flashcardSets); // Validate before proceeding
+                    
                     const totalFlashcardSets = flashcardSets.length;
                     logMessage(`Total flashcard sets found: ${totalFlashcardSets}`);
 
