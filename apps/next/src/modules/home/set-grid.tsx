@@ -91,24 +91,25 @@ export const SetGrid = () => {
   // Fetch and store the data when the component mounts
   useEffect(() => {
     const fetchData = async () => {
-      const localData = await fetchDataFromIndexedDB();
+      try {
+        const localData = await fetchDataFromIndexedDB();
 
-      if (localData.length > 0) {
-        setEntities(localData); // Load from IndexedDB if available
-      } else {
-        try {
+        if (localData.length > 0) {
+          setEntities(localData); // Load from IndexedDB if available
+        } else {
           const response = await fetch("https://app.quizfuze.com/dev/10-3-24-import.json"); // Replace with your JSON file URL
-          const jsonData: StudySet[] = await response.json(); // Ensure the fetched data is typed
+          const jsonData: StudySet[] = await response.json(); // Define the type of jsonData
           await saveDataToIndexedDB(jsonData); // Save to IndexedDB
           setEntities(jsonData); // Set the fetched entities
-        } catch (error) {
-          console.error("Error fetching data:", error);
         }
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, []); // No need to add dependencies, as you want it to run once on mount
+  }, []);
+
 
   // Initialize Fuse.js options
   const fuseOptions = {
@@ -180,8 +181,8 @@ export const SetGrid = () => {
               <StudySetCard
                 studySet={{
                   ...item,
-                  visibility: item.visibility!, // Use non-null assertion if you are sure this is defined
-                  type: item.type!, // Use non-null assertion if you are sure this is defined
+                  visibility: item.visibility!,
+                  type: item.type!,
                 }}
                 collaborators={item.collaborators}
                 draft={item.draft}
