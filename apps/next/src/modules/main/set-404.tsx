@@ -17,7 +17,7 @@ export const Set404 = () => {
       />
       <Center h="calc(100vh - 160px)">
         <GhostMessage
-          message="Looks like you're outta luck"
+          message="Oops.."
           subheading="The study set you're looking for doesn't exist."
           homeButton
         />

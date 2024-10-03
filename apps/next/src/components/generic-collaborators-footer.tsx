@@ -7,7 +7,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { IconGhost3 } from "@tabler/icons-react";
+import { IconBomb } from "@tabler/icons-react";
 
 export interface GenericCollaboratorsFooterProps {
   total: number;
@@ -93,7 +93,7 @@ export const GenericCollaboratorsFooter: React.FC<
           ml="10px"
           zIndex={1}
         >
-          <IconGhost3 size={20} />
+          <IconBomb size={20} />
         </Box>
         <Box
           position="absolute"
@@ -105,7 +105,7 @@ export const GenericCollaboratorsFooter: React.FC<
             color: darkBg,
           }}
         >
-          <IconGhost3 size={20} strokeWidth={8} />
+          <IconBomb size={20} strokeWidth={8} />
         </Box>
         <Box
           position="relative"
@@ -115,7 +115,7 @@ export const GenericCollaboratorsFooter: React.FC<
             fill: darkBg,
           }}
         >
-          <IconGhost3 size={20} fill="inherit" />
+          <IconBomb size={20} fill="inherit" />
         </Box>
       </Box>
       <Text fontSize="sm">{emptyText}</Text>

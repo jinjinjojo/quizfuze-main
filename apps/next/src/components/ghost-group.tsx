@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 import { Box, HStack } from "@chakra-ui/react";
 
-import { IconGhost3 } from "@tabler/icons-react";
+import { IconBomb } from "@tabler/icons-react";
 
 const mainGhost = {
   transition: {
@@ -41,13 +41,13 @@ export const GhostGroup = () => {
   return (
     <HStack spacing="-3" opacity="0.5" position="relative">
       <motion.div {...leftGhost}>
-        <IconGhost3 size={30} strokeWidth="3px" opacity="0.8" />
+        <IconBomb size={30} strokeWidth="3px" opacity="0.8" />
       </motion.div>
       <motion.div {...mainGhost}>
-        <IconGhost3 size={100} strokeWidth="2px" />
+        <IconBomb size={100} strokeWidth="2px" />
       </motion.div>
       <motion.div {...rightGhost}>
-        <IconGhost3 size={40} strokeWidth="3px" opacity="0.9" />
+        <IconBomb size={40} strokeWidth="3px" opacity="0.9" />
       </motion.div>
       <Box
         position="absolute"

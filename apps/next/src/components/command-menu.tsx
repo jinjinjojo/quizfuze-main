@@ -34,7 +34,7 @@ import {
   IconCloudDownload,
   IconFolder,
   IconFolderPlus,
-  IconGhost3,
+  IconBomb,
   IconHome,
   IconLink,
   IconMoon,
@@ -647,7 +647,7 @@ const OptionComp: React.FC<OptionCompProps> = ({
             </HStack>
           ) : (
             <HStack spacing="1" color={baseText}>
-              <IconGhost3 size={16} />
+              <IconBomb size={16} />
               <Text fontSize="xs">No collaborators yet</Text>
             </HStack>
           )
