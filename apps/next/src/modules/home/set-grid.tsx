@@ -43,7 +43,7 @@ const openDatabase = () => {
 
 
 
-const saveDataToIndexedDB = async (data: StudySet[]) => {
+const saveDataToIndexedDB = async (data: StudySet[]): Promise<void> => {
   const db = await openDatabase();
   const transaction = db.transaction(STORE_NAME, "readwrite");
   const store = transaction.objectStore(STORE_NAME);
@@ -52,15 +52,16 @@ const saveDataToIndexedDB = async (data: StudySet[]) => {
     store.put(item);
   });
 
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     transaction.oncomplete = () => {
-      resolve();
+      resolve(); // Now this works since resolve() is inferred as returning void
     };
     transaction.onerror = (event) => {
-      reject(event.target.error);
+      reject((event.target as IDBRequest).error); // Cast for proper type
     };
   });
 };
+
 
 const fetchDataFromIndexedDB = async () => {
   const db = await openDatabase();
