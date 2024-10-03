@@ -229,7 +229,7 @@ export const components = {
 export const styles = {
   global: (props: ChakraProps) => ({
     body: {
-      bg: mode("gray.50", "gray.1000")(props),
+      bg: mode("gray.50", "orange.900")(props),
     },
   }),
 };
