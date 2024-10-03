@@ -24,12 +24,12 @@ export const StudySetsList = () => {
     : "You haven't created any study sets yet.";
 
   // Custom message when the profile ID matches
-  if (profile.id === "cm1qwea6u0001ib036o1hvp8y") {
+  if (profile.id === "cm1qwea6u0001ib036o1hvp8y") { //! OFFICIAL QUIZFUZE USER ID
     return (
       <Stack spacing={8}>
-        <Heading size="lg">Custom Message</Heading>
+        <Heading size="lg">Quizfuze Official Account</Heading>
         <Text color={grayText}>
-          Thank you for using our platform! We're excited to have you here.
+          Thank you for using our platform! We&apos;re excited to have you here.
         </Text>
       </Stack>
     );
