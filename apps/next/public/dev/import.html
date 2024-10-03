@@ -119,10 +119,8 @@
 
                 try {
                     const flashcardSets = JSON.parse(content);
-                    const totalFlashcards = flashcardSets.length;
-
-                    // Log total flashcard sets found
-                    logMessage(`Total flashcard sets found: ${totalFlashcards}`);
+                    const totalFlashcardSets = flashcardSets.length;
+                    logMessage(`Total flashcard sets found: ${totalFlashcardSets}`);
 
                     // Split flashcard sets into batches of 50
                     const batches = splitIntoBatches(flashcardSets, 50);
@@ -130,11 +128,8 @@
                     // Process each batch sequentially with a 1-second delay
                     for (let i = 0; i < batches.length; i++) {
                         const batch = batches[i];
-
-                        // Log current batch range
-                        const startBatch = (i * 50) + 1;
-                        const endBatch = Math.min(startBatch + batch.length - 1, totalFlashcards);
-                        logMessage(`Current batch: ${startBatch}-${endBatch} / ${totalFlashcards}`);
+                        const currentBatchRange = `${i * 50 + 1}-${Math.min((i + 1) * 50, totalFlashcardSets)}`;
+                        logMessage(`Current batch: ${currentBatchRange} / ${totalFlashcardSets}`);
 
                         try {
                             const response = await fetch('/api/import', {
@@ -154,7 +149,7 @@
                                 const firstTitle = batch[0].title;
                                 logMessage(`${firstTitle} + ${batch.length - 1} more successfully imported.`);
                             } else {
-                                logMessage(`Failed to import batch ${i + 1}: ${result.message}`);
+                                logMessage(`Failed to import batch ${i + 1}: ${result.message || 'Unknown error'}`);
                             }
                         } catch (error) {
                             logMessage(`Error importing batch ${i + 1}: ${error.message}`);
@@ -164,7 +159,7 @@
                         await delay(1000);
                     }
                 } catch (error) {
-                    logMessage(`Error: ${error.message}`);
+                    logMessage(`Error parsing JSON: ${error.message}`);
                 } finally {
                     loadingDiv.classList.add('hidden');
                     importButton.disabled = false;
@@ -174,6 +169,7 @@
             reader.readAsText(file);
         });
     </script>
+
 
 </body>
 
