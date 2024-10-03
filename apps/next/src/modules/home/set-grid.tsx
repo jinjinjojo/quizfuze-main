@@ -15,9 +15,12 @@ const openDatabase = () => {
     const request = indexedDB.open(DB_NAME, 1);
 
     request.onupgradeneeded = (event) => {
-      const db = event.target.result;
-      if (!db.objectStoreNames.contains(STORE_NAME)) {
-        db.createObjectStore(STORE_NAME, { keyPath: "id" });
+      const target = event.target; // Extract the target from the event
+      if (target) { // Check if target is not null
+        const db = target.result;
+        if (!db.objectStoreNames.contains(STORE_NAME)) {
+          db.createObjectStore(STORE_NAME, { keyPath: "id" });
+        }
       }
     };
 
@@ -115,9 +118,8 @@ export const SetGrid = () => {
     }
   }, [searchQuery, entities]);
 
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement; // Type assertion to HTMLInputElement
-    setSearchQuery(target.value);
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
   if (data && !data.entities.length) return null;
