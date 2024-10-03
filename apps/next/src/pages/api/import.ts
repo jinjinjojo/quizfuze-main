@@ -51,25 +51,28 @@ async function importFlashcards(flashcardSets: FlashcardSet[], password: string)
 
       await prisma.studySet.create({
         data: {
-            id: setId,
-            title: set.title,
-            description: '',
-            userId: 'cm1qwea6u0001ib036o1hvp8y', // Official Quizfuze Account User ID
-            visibility: 'Public', // Set visibility as per your preference
-            terms: {
+          id: setId,
+          title: set.title,
+          description: '',
+          userId: 'cm1qwea6u0001ib036o1hvp8y', // Official Quizfuze Account User ID
+          visibility: 'Public', // Set visibility as per your preference
+          terms: {
             create: set.cards.map((card: Flashcard) => ({
-                word: card.term,
-                definition: card.definition,
+              word: card.term,
+              definition: card.definition,
             })) as Prisma.TermCreateWithoutStudySetInput[], // Explicitly type this array
-            },
+          },
         },
       });
 
-
       console.log(`Successfully imported study set: ${set.title} with ID: ${setId}`);
     } catch (error) {
-      console.error(`Error importing study set "${set.title}":`, error);
-      throw new Error(`Failed to import study set "${set.title}": ${error.message}`);
+      if (error instanceof Error) {
+        console.error(`Error importing study set "${set.title}":`, error);
+        throw new Error(`Failed to import study set "${set.title}": ${error.message}`);
+      } else {
+        throw new Error(`Failed to import study set "${set.title}": An unknown error occurred.`);
+      }
     }
   }
 
@@ -82,6 +85,10 @@ export const handleImport = async (flashcardSets: FlashcardSet[], password: stri
     await importFlashcards(flashcardSets, password);
     return { success: true, message: 'Import successful.' };
   } catch (error) {
-    return { success: false, message: error.message };
+    if (error instanceof Error) {
+      return { success: false, message: error.message };
+    } else {
+      return { success: false, message: 'An unknown error occurred during import.' };
+    }
   }
 };
