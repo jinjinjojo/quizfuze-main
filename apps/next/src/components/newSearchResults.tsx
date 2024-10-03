@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"; 
-import { Input, Box, Button, Stack, Heading, Flex, Text } from "@chakra-ui/react";
+import { Input, Box, Button, Heading, Flex, Text } from "@chakra-ui/react";
 import Fuse from "fuse.js";
-import { useHistory } from "react-router-dom"; // Make sure to have react-router-dom installed
+import { Link } from "@quenti/components"; // Import Link from @quenti/components
 
 interface StudySet {
   id: string;
@@ -16,7 +16,6 @@ export const NewSearchResults: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchResults, setSearchResults] = useState<StudySet[]>([]);
   const [studySets, setStudySets] = useState<StudySet[]>([]); // State to store study sets
-  const history = useHistory(); // Hook for navigation
 
   useEffect(() => {
     // Fetch study sets from localStorage or API
@@ -83,18 +82,38 @@ export const NewSearchResults: React.FC = () => {
           X
         </Button>
       </Flex>
-      <Box borderWidth={1} borderRadius="lg" overflow="hidden" mt={2}>
-        {searchResults.map((result) => (
-          <Box
-            key={result.id}
-            p={3}
-            _hover={{ bg: "gray.100", cursor: "pointer" }} // Hover effect
-            onClick={() => history.push(`/${result.id}`)} // Navigate to the link
-          >
-            <Text fontWeight="bold">{result.title}</Text>
-          </Box>
-        ))}
-      </Box>
+      {searchResults.length > 0 && (
+        <Box
+          borderWidth={1}
+          borderRadius="lg"
+          overflow="hidden"
+          mt={2}
+          position="absolute"
+          zIndex={1} // Ensure dropdown is above other content
+          bg="white" // Background color
+          boxShadow="md" // Box shadow for better visibility
+          width="100%" // Full width
+        >
+          {searchResults.slice(0, 15).map((result) => (
+            <Link
+              key={result.id}
+              href={`/@${result.id}`} // Use the Link component from @quenti/components
+              style={{
+                display: "block",
+                padding: "10px",
+                borderBottom: "1px solid #e2e8f0", // Border between items
+                borderRadius: "5px",
+                transition: "background 0.2s",
+                textDecoration: "none",
+                color: "black",
+              }}
+              _hover={{ bg: "gray.100" }} // Hover effect
+            >
+              <Text fontWeight="bold">{result.title}</Text>
+            </Link>
+          ))}
+        </Box>
+      )}
     </Box>
   );
 };
