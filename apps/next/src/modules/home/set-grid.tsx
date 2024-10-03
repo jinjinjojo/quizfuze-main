@@ -11,27 +11,29 @@ const DB_NAME = "StudySetsDB";
 const STORE_NAME = "sets";
 
 const openDatabase = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise<IDBDatabase>((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, 1);
 
     request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
       const target = event.target as IDBOpenDBRequest; // Cast to IDBOpenDBRequest
-      const db = target.result; // Now TypeScript recognizes `result` exists
-
+      const db = target.result; // Accessing result safely
       if (!db.objectStoreNames.contains(STORE_NAME)) {
         db.createObjectStore(STORE_NAME, { keyPath: "id" });
       }
     };
 
     request.onsuccess = (event) => {
-      resolve(event.target.result);
+      const target = event.target as IDBOpenDBRequest; // Cast to IDBOpenDBRequest
+      resolve(target.result); // Now it's safe to access result
     };
 
     request.onerror = (event) => {
-      reject(event.target.error);
+      const target = event.target as IDBOpenDBRequest; // Cast to IDBOpenDBRequest
+      reject(target.error); // Accessing error safely
     };
   });
 };
+
 
 
 const saveDataToIndexedDB = async (data) => {
