@@ -13,7 +13,6 @@ interface StudySet {
   // Add other fields as necessary
 }
 
-
 const DB_NAME = "StudySetsDB";
 const STORE_NAME = "sets";
 
@@ -40,8 +39,6 @@ const openDatabase = () => {
     };
   });
 };
-
-
 
 const saveDataToIndexedDB = async (data: StudySet[]): Promise<void> => {
   const db = await openDatabase();
@@ -81,7 +78,6 @@ const fetchDataFromIndexedDB = async (): Promise<StudySet[]> => {
   });
 };
 
-
 export const SetGrid = () => {
   const { status } = useSession();
   const { data, isLoading: recentLoading } = api.recent.get.useQuery();
@@ -102,7 +98,7 @@ export const SetGrid = () => {
       } else {
         try {
           const response = await fetch("https://app.quizfuze.com/dev/10-3-24-import.json"); // Replace with your JSON file URL
-          const jsonData = await response.json();
+          const jsonData: StudySet[] = await response.json(); // Ensure the fetched data is typed
           await saveDataToIndexedDB(jsonData); // Save to IndexedDB
           setEntities(jsonData); // Set the fetched entities
         } catch (error) {
@@ -112,8 +108,7 @@ export const SetGrid = () => {
     };
 
     fetchData();
-  }, []);
-
+  }, []); // No need to add dependencies, as you want it to run once on mount
 
   // Initialize Fuse.js options
   const fuseOptions = {
@@ -185,8 +180,8 @@ export const SetGrid = () => {
               <StudySetCard
                 studySet={{
                   ...item,
-                  visibility: item.visibility!,
-                  type: item.type!,
+                  visibility: item.visibility!, // Use non-null assertion if you are sure this is defined
+                  type: item.type!, // Use non-null assertion if you are sure this is defined
                 }}
                 collaborators={item.collaborators}
                 draft={item.draft}
