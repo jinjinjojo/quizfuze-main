@@ -51,19 +51,20 @@ async function importFlashcards(flashcardSets: FlashcardSet[], password: string)
 
       await prisma.studySet.create({
         data: {
-          id: setId,
-          title: set.title,
-          description: '',
-          userId: 'cm1qwea6u0001ib036o1hvp8y', // Official Quizfuze Account User ID
-          visibility: 'Public', // Set visibility as per your preference
-          terms: {
+            id: setId,
+            title: set.title,
+            description: '',
+            userId: 'cm1qwea6u0001ib036o1hvp8y', // Official Quizfuze Account User ID
+            visibility: 'Public', // Set visibility as per your preference
+            terms: {
             create: set.cards.map((card: Flashcard) => ({
-              word: card.term,
-              definition: card.definition,
-            })),
-          },
+                word: card.term,
+                definition: card.definition,
+            })) as prisma.TermCreateWithoutStudySetInput[], // Explicitly type this array
+            },
         },
       });
+
 
       console.log(`Successfully imported study set: ${set.title} with ID: ${setId}`);
     } catch (error) {
