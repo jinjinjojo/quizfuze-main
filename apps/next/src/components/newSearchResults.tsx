@@ -31,7 +31,7 @@ export const NewSearchResults: React.FC = () => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
-          const data: StudySetResponse = await response.json(); // Define the response type
+          const data: StudySetResponse = await response.json() as StudySetResponse; // Define the response type
 
           // Access the study sets array from the response
           setStudySets(data.StudySet); // Store fetched study sets
