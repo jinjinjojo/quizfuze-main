@@ -1,73 +1,100 @@
-import { useEffect, useState } from "react"; // Import necessary hooks
-import { useSession } from "next-auth/react"; 
-import { api } from "@quenti/trpc";
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import Fuse from "fuse.js"; // Import Fuse.js for fuzzy searching
 import { Grid, GridItem, Heading, Input, Box, Stack, Skeleton } from "@chakra-ui/react";
-import { StudySetCard } from "../../components/study-set-card"; // Import your StudySetCard component
-import { useRouter } from 'next/router'; // Import useRouter for navigation
+import { StudySetCard } from "../../components/study-set-card";
+import { FolderCard } from "../../components/folder-card";
+import { useRouter } from 'next/router'; 
+import { api } from "@quenti/trpc";
 
-// Define an interface for the StudySet entity
-interface StudySet {
-  id: string;
-  title: string;
+// Define ApiResponse, SetEntity, FolderEntity as before
+interface ApiResponse {
+  entities: Array<SetEntity | FolderEntity>;
 }
 
-// Define the response type from the API
-interface ApiResponse {
-  StudySet: StudySet[];
+interface SetEntity {
+  id: string;
+  entityType: "set";
+  title: string;
+  visibility: string;
+  type: string;
+  collaborators: { total: number; avatars: string[] };
+  draft: boolean;
+  numItems: number;
+  user: {
+    username: string;
+    image: string;
+  };
+}
+
+interface FolderEntity {
+  id: string;
+  entityType: "folder";
+  title: string;
+  numItems: number;
+  user: {
+    username: string;
+    image: string;
+  };
 }
 
 export const SetGrid = () => {
   const { status } = useSession();
-  const { data, isLoading: recentLoading } = api.recent.get.useQuery<ApiResponse>(); // Specify the type here
+  const { data, isLoading: recentLoading } = api.recent.get.useQuery<ApiResponse>();
   const isLoading = status === "unauthenticated" || recentLoading;
-  const [searchQuery, setSearchQuery] = useState<string>(""); 
-  const [searchResults, setSearchResults] = useState<StudySet[]>([]); // Define state for search results
-  const router = useRouter(); // Initialize router for navigation
 
-  // Effect to load data from local storage
+  const [searchQuery, setSearchQuery] = useState<string>(""); 
+  const [searchResults, setSearchResults] = useState<SetEntity[]>([]); // Define state for search results
+  const router = useRouter();
+
+  // Filter out only sets from the response for searching
+  const studySets = (data?.entities || []).filter(
+    (entity): entity is SetEntity => entity.entityType === "set"
+  );
+
+  // Load search data from localStorage
   useEffect(() => {
-    const localData = localStorage.getItem('studySets'); // Load from local storage
+    const localData = localStorage.getItem('studySets');
     if (localData) {
-      const parsedData: StudySet[] = JSON.parse(localData); // Parse data as StudySet[]
+      const parsedData: SetEntity[] = JSON.parse(localData);
       setSearchResults(parsedData); // Load initial search results from local storage
     }
   }, []);
 
   // Update local storage whenever data changes
   useEffect(() => {
-    if (data?.StudySet) {
-      localStorage.setItem('studySets', JSON.stringify(data.StudySet)); // Store study sets in local storage
+    if (studySets.length) {
+      localStorage.setItem('studySets', JSON.stringify(studySets)); // Store study sets in local storage
     }
-  }, [data]);
+  }, [studySets]);
 
+  // Implement fuzzy search when search query changes
   useEffect(() => {
-    // Implement fuzzy search when search query changes
-    if (data?.StudySet) {
-      const fuse = new Fuse(data.StudySet, {
+    if (studySets.length) {
+      const fuse = new Fuse(studySets, {
         keys: ["title"],
         includeScore: true,
         threshold: 0.3,
       });
       const results = searchQuery.length > 0 ? fuse.search(searchQuery) : [];
-      setSearchResults(results.map(result => result.item as StudySet)); // Update search results
+      setSearchResults(results.map(result => result.item)); // Update search results
     }
-  }, [searchQuery, data]);
+  }, [searchQuery, studySets]);
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value); // Update search query
   };
 
-  if (data && !data.StudySet.length) return null; // Handle case where there are no study sets
+  if (data && !data.entities.length) return null;
 
   return (
     <Stack spacing={6}>
-      <Box position="relative"> {/* Box for positioning the search results dropdown */}
-        <Heading size="md">Search</Heading> {/* Search header */}
+      <Box position="relative">
+        <Heading size="md">Search</Heading>
         <Input
           placeholder="Search..."
           value={searchQuery}
-          onChange={handleSearchInputChange} // Call the change handler
+          onChange={handleSearchInputChange}
           mt={2}
         />
         {searchResults.length > 0 && (
@@ -78,9 +105,9 @@ export const SetGrid = () => {
                 p={2}
                 cursor="pointer"
                 _hover={{ bg: "gray.100" }}
-                onClick={() => router.push(`/${result.id}`)} // Navigate to result
+                onClick={() => router.push(`/${result.id}`)}
               >
-                {result.title} {/* Display the title */}
+                {result.title}
               </Box>
             ))}
           </Box>
@@ -94,14 +121,22 @@ export const SetGrid = () => {
         {isLoading &&
           Array.from({ length: 16 }).map((_, i) => (
             <GridItem h="156px" key={i}>
-              <StudySetCard.Skeleton /> {/* Use your skeleton card component */}
+              <StudySetCard.Skeleton />
             </GridItem>
           ))}
-        {(data?.StudySet || []).map((item) => (
+        {(data?.entities || []).map((item) => (
           <GridItem key={item.id} h="156px">
-            <StudySetCard
-              studySet={item} // Directly pass the item to StudySetCard
-            />
+            {item.entityType == "set" ? (
+              <StudySetCard
+                studySet={item} // Directly pass the item to StudySetCard
+              />
+            ) : (
+              <FolderCard
+                folder={{ ...item }}
+                numSets={item.numItems}
+                user={item.user}
+              />
+            )}
           </GridItem>
         ))}
       </Grid>
