@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"; 
-import { Input, Box, Button, Stack, Heading, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Input, Box, Button, Heading, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import Fuse from "fuse.js";
 import { Link } from "@quenti/components"; // Import Link from @quenti/components
 
