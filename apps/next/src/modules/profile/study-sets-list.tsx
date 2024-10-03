@@ -23,11 +23,14 @@ export const StudySetsList = () => {
     ? "This user doesn't have any public study sets."
     : "You haven't created any study sets yet.";
 
+  // Check if the logged-in user is the official account
+  const isOfficialAccount = profile.id === "cm1qwea6u0001ib036o1hvp8y"; //! OFFICIAL QUIZFUZE USER ID
+
   // If the logged-in user is the official account, show their flashcards
-  if (profile.isMe && profile.id === "cm1qwea6u0001ib036o1hvp8y") {
+  if (profile.isMe && isOfficialAccount) {
     return (
       <Stack spacing={8}>
-        <Heading size="lg">Quizfuze Admin: Your Flashcards</Heading>
+        <Heading size="lg">Your Flashcards</Heading>
         {grouped.length > 0 ? (
           grouped.map((x, i) => (
             <Stack spacing={6} key={i}>
@@ -57,6 +60,18 @@ export const StudySetsList = () => {
             <Text color={grayText}>{placeholder}</Text>
           </Stack>
         )}
+      </Stack>
+    );
+  }
+
+  // If another user tries to access the official account
+  if (isOfficialAccount && !profile.isMe) {
+    return (
+      <Stack spacing={8}>
+        <Heading size="lg">Quizfuze Official Account</Heading>
+        <Text color={grayText}>
+          Thank you for using our platform! You found the official Quizfuze account!
+        </Text>
       </Stack>
     );
   }
