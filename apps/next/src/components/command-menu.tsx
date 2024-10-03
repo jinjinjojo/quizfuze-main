@@ -97,7 +97,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
   const onSet = router.pathname == "/sets/[id]";
   const onFolder = router.pathname == "/profile/[username]/folders/[slug]";
 
-  const url = (id: string) => `${APP_URL}/_${id}`;
+  const url = (id: string) => `${APP_URL}/${router.query.id}`;
   const onSuccess = (id: string) => {
     void (async () => {
       await navigator.clipboard.writeText(url(id));
