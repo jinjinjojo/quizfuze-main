@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"; 
-import { Input, Box } from "@chakra-ui/react";
+import { Input, Box, Button, Stack, Heading, Flex, Text } from "@chakra-ui/react";
 import Fuse from "fuse.js";
+import { useHistory } from "react-router-dom"; // Make sure to have react-router-dom installed
 
 interface StudySet {
   id: string;
@@ -15,6 +16,7 @@ export const NewSearchResults: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchResults, setSearchResults] = useState<StudySet[]>([]);
   const [studySets, setStudySets] = useState<StudySet[]>([]); // State to store study sets
+  const history = useHistory(); // Hook for navigation
 
   useEffect(() => {
     // Fetch study sets from localStorage or API
@@ -62,23 +64,36 @@ export const NewSearchResults: React.FC = () => {
     setSearchQuery(e.target.value); // Update search query
   };
 
+  const clearSearch = () => {
+    setSearchQuery(""); // Clear the search query
+    setSearchResults([]); // Clear search results
+  };
+
   return (
-    <Box>
-      <Input
-        placeholder="Search..."
-        value={searchQuery}
-        onChange={handleSearchInputChange}
-      />
-      <Box mt={2}>
-        {searchResults.length > 0 ? (
-          searchResults.map((result) => (
-            <Box key={result.id} p={2}>
-              {result.title}
-            </Box>
-          ))
-        ) : (
-          <Box>No results found.</Box>
-        )}
+    <Box p={4}>
+      <Heading as="h2" size="lg" mb={4}>Search</Heading>
+      <Flex mb={2}>
+        <Input
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+          mr={2}
+        />
+        <Button onClick={clearSearch} colorScheme="red">
+          X
+        </Button>
+      </Flex>
+      <Box borderWidth={1} borderRadius="lg" overflow="hidden" mt={2}>
+        {searchResults.map((result) => (
+          <Box
+            key={result.id}
+            p={3}
+            _hover={{ bg: "gray.100", cursor: "pointer" }} // Hover effect
+            onClick={() => history.push(`/${result.id}`)} // Navigate to the link
+          >
+            <Text fontWeight="bold">{result.title}</Text>
+          </Box>
+        ))}
       </Box>
     </Box>
   );
