@@ -115,8 +115,9 @@ export const SetGrid = () => {
     }
   }, [searchQuery, entities]);
 
-  const handleSearchInputChange = (e) => {
-    setSearchQuery(e.target.value);
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement; // Type assertion to HTMLInputElement
+    setSearchQuery(target.value);
   };
 
   if (data && !data.entities.length) return null;
