@@ -21,8 +21,8 @@ export const ClassesBeta = () => {
         title={
           <HStack>
             <Heading size="md">Search</Heading>
-            <Tag size="sm" colorScheme="red">
-              Coming Soon
+            <Tag size="sm" colorScheme="green">
+              New
             </Tag>
           </HStack>
         }
@@ -88,7 +88,7 @@ export const ClassesBeta = () => {
                           color: "gray.400",
                         }}
                       >
-                        473 sets found
+                        12 results found
                       </Text>
                     </Stack>
                   </Box>
