@@ -18,9 +18,9 @@ export const News = () => {
         <Heading size="lg">What&apos;s new</Heading>
       </Skeleton>
       <Grid templateColumns="repeat(auto-fill, minmax(256px, 1fr))" gap={4}>
+        <ClassesBeta />
         <Images />
         <RichText />
-        <ClassesBeta />
         <IntroducingCortex />
       </Grid>
     </Stack>

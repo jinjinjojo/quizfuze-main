@@ -49,7 +49,7 @@ export const Footer = () => {
             <HStack spacing="3">
               <Link href={WEBSITE_URL}>
                 <HStack>
-                  <FrameLogo width="18px" height="18px" />
+                  <FrameLogo width="24px" height="24px" />
                   <Heading size="md" className="notranslate">
                     Quizfuze
                   </Heading>

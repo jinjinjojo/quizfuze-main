@@ -68,7 +68,7 @@ export const LeftNav: React.FC<LeftNavProps> = ({
           rel="home"
           ml="2"
         >
-          <Logo boxSize="24px" />
+          <Logo boxSize="32px" />
           <Heading
             as="p"
             fontSize="2xl"

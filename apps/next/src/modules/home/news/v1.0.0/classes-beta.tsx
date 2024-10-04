@@ -26,7 +26,7 @@ export const ClassesBeta = () => {
             </Tag>
           </HStack>
         }
-        description="Quickly find study materials, quizzes, and resources with our powerful search feature."
+        description="Quickly find flashcard sets  with our powerful search feature."
         image={
           <Center overflow="hidden" w="full" h="full" position="relative">
             <Box
