@@ -8,10 +8,14 @@ import {
   VStack,
   Heading,
   SimpleGrid,
+  Icon,
+  useBreakpointValue,
+  IconButton,
 } from "@chakra-ui/react";
 import { PageWrapper } from "../common/page-wrapper";
 import { getLayout } from "../layouts/main-layout";
-import { IconExternalLink } from '@tabler/icons-react'; // Import X icon from Tabler Icons
+import { IconExternalLink, IconRefresh } from '@tabler/icons-react'; // Import icons from Tabler Icons
+import { NewSearchResults } from "../../components/newSearchResults"; // Import search results component
 
 interface StudySet {
   id: string;
@@ -85,7 +89,6 @@ const DiscoverPage = () => {
     return sets.sort(() => 0.5 - Math.random()).slice(0, 16); // Randomize and limit to 16
   };
 
-  // Define fetchStudySets inside the DiscoverPage component
   const fetchStudySets = async () => {
     const cachedStudySets = localStorage.getItem("studySets");
 
@@ -100,8 +103,7 @@ const DiscoverPage = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        const data = await response.json() as StudySetResponse; // Cast response here
-
+        const data: StudySetResponse = await response.json();
         const randomStudySets = randomizeSets(data.StudySet);
         setStudySets(randomStudySets);
         localStorage.setItem("studySets", JSON.stringify(data.StudySet)); // Cache original data
@@ -111,10 +113,22 @@ const DiscoverPage = () => {
     }
   };
 
-  // Call fetchStudySets within useEffect
   useEffect(() => {
+    
+
     fetchStudySets().catch((error) => console.error("Failed to fetch study sets:", error));
   }, []);
+
+  const refreshSets = () => {
+    // Re-fetch or randomize study sets
+    const cachedStudySets = localStorage.getItem("studySets");
+    if (cachedStudySets) {
+      const parsedSets = JSON.parse(cachedStudySets) as StudySet[];
+      setStudySets(randomizeSets(parsedSets));
+    } else {
+      fetchStudySets(); // Call the fetch function again if no cache
+    }
+  };
 
   return (
     <Box
@@ -125,6 +139,21 @@ const DiscoverPage = () => {
     >
       <HeadSeo title="Discover - Quizfuze" />
       <DiscoverTitle />
+
+      <IconButton
+        aria-label="Refresh"
+        icon={<IconRefresh />}
+        onClick={refreshSets}
+        colorScheme="teal"
+        position="absolute"
+        top={4}
+        right={4}
+        mb={4}
+        zIndex={1}
+      />
+
+      <NewSearchResults /> {/* Add the search bar component here */}
+
       <Container maxW="7xl" py={12}>
         <SimpleGrid columns={[1, null, 4]} spacing={10}>
           {studySets.map(set => (
