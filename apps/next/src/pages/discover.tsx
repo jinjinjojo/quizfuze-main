@@ -100,7 +100,8 @@ const DiscoverPage = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        const data: StudySetResponse = await response.json();
+        const data = await response.json() as StudySetResponse; // Cast response here
+
         const randomStudySets = randomizeSets(data.StudySet);
         setStudySets(randomStudySets);
         localStorage.setItem("studySets", JSON.stringify(data.StudySet)); // Cache original data
