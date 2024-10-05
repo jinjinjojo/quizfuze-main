@@ -65,5 +65,3 @@ import-flashcards.js
 
 # Ignore the imported-sets directory
 imported-sets/
-
-output.log

@@ -18,7 +18,8 @@ export const SetGrid = () => {
 
   return (
     <Stack spacing={6}>
-      <NewSearchResults></NewSearchResults>
+      {/* //! 8/3/24 New Search Component */}
+      <NewSearchResults></NewSearchResults> 
      
       <Skeleton isLoaded={!!data} rounded="md" fitContent>
         <Heading size="lg">Recent</Heading>
