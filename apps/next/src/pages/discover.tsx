@@ -25,6 +25,11 @@ interface StudySetResponse {
   StudySet: StudySet[];
 }
 
+// Define props for StudySetCard component
+interface StudySetCardProps {
+  set: StudySet; // Explicitly define the type for the set prop
+}
+
 const DiscoverTitle = () => (
   <Box mb={6}>
     <Heading 
@@ -40,7 +45,7 @@ const DiscoverTitle = () => (
   </Box>
 );
 
-const StudySetCard = ({ set }) => (
+const StudySetCard = ({ set }: StudySetCardProps) => ( // Use the props type here
   <Box
     borderWidth="1px"
     borderRadius="lg"
