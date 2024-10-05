@@ -15,7 +15,7 @@ import {
 import { PageWrapper } from "../common/page-wrapper";
 import { getLayout } from "../layouts/main-layout";
 import { IconExternalLink, IconRefresh } from '@tabler/icons-react'; // Import icons from Tabler Icons
-import { NewSearchResults } from "../../components/newSearchResults"; // Import search results component
+import { NewSearchResults } from "../components/newSearchResults"; // Import search results component
 
 interface StudySet {
   id: string;
