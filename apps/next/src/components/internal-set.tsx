@@ -45,6 +45,7 @@ const InternalSet: React.FC<InternalSetProps> = ({ collab }) => {
               <TermsOverview />
             </Stack>
           </Container>
+          {/* Add a section right here with 8 random sets */}
         </WithFooter>
       </HydrateSetData>
     </PhotoViewProvider>
