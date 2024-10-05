@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { HeadSeo } from "@quenti/components/head-seo";
 import {
@@ -9,8 +8,6 @@ import {
   VStack,
   Heading,
   SimpleGrid,
-  Icon,
-  useBreakpointValue,
 } from "@chakra-ui/react";
 import { PageWrapper } from "../common/page-wrapper";
 import { getLayout } from "../layouts/main-layout";
