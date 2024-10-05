@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { HeadSeo } from "@quenti/components/head-seo";
 import {
@@ -8,10 +9,14 @@ import {
   VStack,
   Heading,
   SimpleGrid,
+  Icon,
+  useBreakpointValue,
+  IconButton,
 } from "@chakra-ui/react";
 import { PageWrapper } from "../common/page-wrapper";
 import { getLayout } from "../layouts/main-layout";
-import { IconExternalLink } from '@tabler/icons-react'; // Import X icon from Tabler Icons
+import { IconExternalLink, IconRefresh } from '@tabler/icons-react'; // Import icons from Tabler Icons
+import { NewSearchResults } from "../../components/newSearchResults"; // Import search results component
 
 interface StudySet {
   id: string;
@@ -100,7 +105,7 @@ const DiscoverPage = () => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
-          const data = await response.json() as StudySetResponse; // Cast response here
+          const data: StudySetResponse = await response.json();
           const randomStudySets = randomizeSets(data.StudySet);
           setStudySets(randomStudySets);
           localStorage.setItem("studySets", JSON.stringify(data.StudySet)); // Cache original data
@@ -113,6 +118,17 @@ const DiscoverPage = () => {
     fetchStudySets().catch((error) => console.error("Failed to fetch study sets:", error));
   }, []);
 
+  const refreshSets = () => {
+    // Re-fetch or randomize study sets
+    const cachedStudySets = localStorage.getItem("studySets");
+    if (cachedStudySets) {
+      const parsedSets = JSON.parse(cachedStudySets) as StudySet[];
+      setStudySets(randomizeSets(parsedSets));
+    } else {
+      fetchStudySets(); // Call the fetch function again if no cache
+    }
+  };
+
   return (
     <Box
       bg={{ base: "white", dark: "gray.800" }} // Dark mode support
@@ -122,6 +138,21 @@ const DiscoverPage = () => {
     >
       <HeadSeo title="Discover - Quizfuze" />
       <DiscoverTitle />
+
+      <IconButton
+        aria-label="Refresh"
+        icon={<IconRefresh />}
+        onClick={refreshSets}
+        colorScheme="teal"
+        position="absolute"
+        top={4}
+        right={4}
+        mb={4}
+        zIndex={1}
+      />
+
+      <NewSearchResults /> {/* Add the search bar component here */}
+
       <Container maxW="7xl" py={12}>
         <SimpleGrid columns={[1, null, 4]} spacing={10}>
           {studySets.map(set => (
