@@ -124,7 +124,8 @@ const DiscoverPage = () => {
       const parsedSets = JSON.parse(cachedStudySets) as StudySet[];
       setStudySets(randomizeSets(parsedSets));
     } else {
-      fetchStudySets(); // Call the fetch function again if no cache
+      fetchStudySets() // Call the fetch function again if no cache
+        .catch((error) => console.error("Failed to fetch study sets:", error)); // Handle errors
     }
   };
 
