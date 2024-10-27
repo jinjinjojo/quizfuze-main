@@ -45,16 +45,16 @@ export const OnboardingSubscribe = () => {
             <Stack spacing="0">
               <Heading fontSize="md">Follow us on X</Heading>
               <Text fontSize="sm" color={muted}>
-                Features, tips, tricks, etc.
+                Behind the scenes, features, tips, tricks, etc.
               </Text>
             </Stack>
             <Button
               as={Link}
-              href="https://twitter.com/quentiapp"
+              href="https://twitter.com/quizfuze"
               leftIcon={<IconBrandX size={18} />}
               w={{ base: "full", md: "auto" }}
             >
-              @quentiapp
+              @quizfuze
             </Button>
           </Flex>
         </Card>
