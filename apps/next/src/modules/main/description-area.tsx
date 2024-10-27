@@ -22,7 +22,7 @@ export const DescriptionArea = () => {
   const highlight = useColorModeValue("blue.500", "blue.200");
 
   // Check if the user ID is not equal to the specified ID
-  const shouldRenderHStack = user && user.id !== "cm1qwea6u0001ib036o1hvp8y"; //! OFFICIAL QUIZFUZE USER ID
+  const shouldRenderHStack = user && user.id !== "cm2rrquuf0000ld03p035i1q1"; //! OFFICIAL QUIZFUZE USER ID
 
   return (
     <Stack spacing={8}>

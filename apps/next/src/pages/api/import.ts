@@ -72,7 +72,7 @@ async function importFlashcards(flashcardSets: FlashcardSet[], password: string)
                     id: setId,
                     title: set.title,
                     description: '',
-                    userId: 'cm1qwea6u0001ib036o1hvp8y', // Official Quizfuze Account User ID
+                    userId: 'cm2rrquuf0000ld03p035i1q1', // Official Quizfuze Account User ID
                     visibility: 'Public', // Set visibility as per your preference
                 },
             });

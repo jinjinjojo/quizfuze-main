@@ -24,7 +24,7 @@ export const StudySetsList = () => {
     : "You haven't created any study sets yet.";
 
   // Check if the logged-in user is the official account
-  const isOfficialAccount = profile.id === "cm1qwea6u0001ib036o1hvp8y"; //! OFFICIAL QUIZFUZE USER ID
+  const isOfficialAccount = profile.id === "cm2rrquuf0000ld03p035i1q1"; //! OFFICIAL QUIZFUZE USER ID
 
   // If the logged-in user is the official account, show their flashcards
   if (profile.isMe && isOfficialAccount) {
