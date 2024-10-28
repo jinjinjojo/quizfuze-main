@@ -30,7 +30,7 @@ export const NewSearchResults: React.FC = () => {
       } else {
         // Fetch from API if no cached data
         try {
-          const response = await fetch("/dev/10-3-24-import.json");
+          const response = await fetch("/dev/10-27-24-import.json");
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
