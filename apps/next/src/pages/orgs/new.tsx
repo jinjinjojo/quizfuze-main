@@ -134,7 +134,7 @@ export default function NewOrganization() {
     <>
       {true ? (
         <> {/* //!!DISABLE ABILITY TO CREATE NEW ORGANIZATIONS */}
-          <p style="text-align:center">Not Available.</p>
+          <p style={{ textAlign: 'center' }}>Not Available.</p>
         </>
       ) : (
         <WizardLayout
